@@ -16,6 +16,10 @@
                     {{ __('Kategori') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                    {{ __('User Management') }}
+                </x-responsive-nav-link>
+
                 @endif
 
             @if(auth()->user()->role === 'teacher')

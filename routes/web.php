@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserManagementController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('role:admin')->group(function () {
     Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserManagementController::class);
 });
 
 require __DIR__.'/auth.php';
