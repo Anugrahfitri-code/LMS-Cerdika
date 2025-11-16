@@ -36,4 +36,8 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class, 'enrollments');
     }
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
 }
