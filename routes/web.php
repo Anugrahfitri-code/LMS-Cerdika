@@ -9,6 +9,8 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ProgressController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
@@ -40,6 +42,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
         
+    // Rute untuk menampilkan halaman belajar
+    Route::get('/courses/{course}/lesson/{content}', [LessonController::class, 'show'])
+        ->name('courses.lesson.show');
+
+    // Rute untuk tombol "Mark as Done"
+    Route::post('/lesson/{content}/complete', [ProgressController::class, 'store'])
+        ->name('lesson.complete');
 
 });
 
