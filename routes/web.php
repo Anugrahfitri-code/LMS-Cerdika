@@ -11,6 +11,8 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgressController;
+use App\HttpControllers\ThreadController;
+use App\Http\Controllers\PostController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
@@ -51,7 +53,20 @@ Route::middleware('auth')->group(function () {
         ->name('lesson.complete');
 
     Route::get('/courses/{course}/student-progress', [CourseController::class, 'studentProgress'])
-         ->name('courses.student.progress');    
+         ->name('courses.student.progress'); 
+         
+    // Rute untuk menampilkan daftar thread & membuat thread baru
+    Route::resource('courses.threads', ThreadController::class)->only([
+        'index', 'create', 'store', 'show'
+    ]);
+
+    // Rute untuk membalas (membuat post) di dalam thread
+    Route::post('/threads/{thread}/posts', [PostController::class, 'store'])
+         ->name('threads.posts.store');
+
+    // Rute untuk menghapus balasan (post)
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+         ->name('posts.destroy');     
 
 });
 
