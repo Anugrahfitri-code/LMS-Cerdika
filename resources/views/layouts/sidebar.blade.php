@@ -20,10 +20,17 @@
                     {{ __('User Management') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
+                    {{ __('Course Management') }}
+                </x-responsive-nav-link>
+
                 @endif
 
             @if(auth()->user()->role === 'teacher')
-                @endif
+                <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
+                    {{ __('My Courses') }}
+                </x-responsive-nav-link>
+            @endif
 
             @if(auth()->user()->role === 'student')
                 @endif
