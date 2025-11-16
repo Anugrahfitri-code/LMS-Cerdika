@@ -8,13 +8,14 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () { 
     
@@ -32,7 +33,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
         Route::resource('users', UserManagementController::class);
     });
-    
+
     // student
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])
             ->middleware('role:student') 

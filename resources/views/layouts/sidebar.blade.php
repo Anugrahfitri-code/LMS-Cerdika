@@ -33,6 +33,11 @@
             @endif
 
             @if(auth()->user()->role === 'student')
+
+                <x-responsive-nav-link :href="route('course.catalog')" :active="request()->routeIs('course.catalog')">
+                    {{ __('Katalog Kursus') }}
+                </x-responsive-nav-link>
+
                 @endif
         </div>
     </nav>
