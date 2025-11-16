@@ -48,6 +48,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 
+                                            @can('update', $course)
+                                                <a href="{{ route('courses.contents.index', $course) }}" class="text-yellow-600 hover:text-yellow-900 mr-2">Materi</a>
+                                            @endcan
                                             @can('view', $course)
                                                 <a href="{{ route('courses.show', $course) }}" class="text-green-600 hover:text-green-900 mr-2">View</a>
                                             @endcan

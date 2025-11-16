@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Course;
 use App\Policies\CoursePolicy;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Content;
+use App\Policies\ContentPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Course::class, CoursePolicy::class);
+        Gate::policy(Content::class, ContentPolicy::class);
     }
 }
