@@ -44,6 +44,7 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="{{ route('users.show', $user) }}" class="text-green-600 hover:text-green-900 mr-2">View</a>
                                         <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                         <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline ml-4" onsubmit="return confirm('Anda yakin ingin menghapus user ini?');">
                                             @csrf

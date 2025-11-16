@@ -59,9 +59,13 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        //
+        $this->authorize('view', $course);
+
+        $course->load('category', 'teacher');
+        
+        return view('courses.show', compact('course'));
     }
 
     /**

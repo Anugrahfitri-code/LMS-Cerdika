@@ -47,10 +47,14 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            @can('update', $course)
-                                                <a href="{{ route('courses.edit', $course) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                            @endcan
 
+                                            @can('view', $course)
+                                                <a href="{{ route('courses.show', $course) }}" class="text-green-600 hover:text-green-900 mr-2">View</a>
+                                            @endcan
+                                            @can('update', $course)
+                                                <a href="{{ route('courses.edit', $course) }}" class="text-indigo-600 hover:text-indigo-900 ml-2 mr-2">Edit</a>
+                                            @endcan
+                                            
                                             @can('delete', $course)
                                                 <form action="{{ route('courses.destroy', $course) }}" method="POST" class="inline ml-4" onsubmit="return confirm('Anda yakin ingin menghapus kursus ini?');">
                                                     @csrf
