@@ -24,7 +24,10 @@ class LessonController extends Controller
 
         $courseContents = $course->contents()->orderBy('order', 'asc')->get();
 
-        $completedContentIds = $user->progress()->whereIn('content_id', $courseContents->pluck('id'))->pluck('id')->toArray();
+        $completedContentIds = $user->progress()
+                                ->whereIn('content_id', $courseContents->pluck('id'))
+                                ->pluck('content_id') 
+                                ->toArray();
 
         return view('lessons.show', [
             'course' => $course,

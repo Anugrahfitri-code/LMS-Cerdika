@@ -14,8 +14,11 @@ class DashboardController extends Controller
 
         if ($user->role === 'student') {
             $enrolledCourses = $user->enrolledCourses()
-                                   ->with('teacher') 
-                                   ->get();
+                       ->with('teacher') 
+                       ->with('contents', function ($query) {
+                           $query->orderBy('order', 'asc')->first();
+                       })
+                       ->get();
         }
 
         return view('dashboard', [

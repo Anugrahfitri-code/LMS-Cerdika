@@ -30,9 +30,17 @@
                                         </div>
 
                                         <div class="p-4 bg-gray-50">
-                                            <a href="#" class="font-semibold text-blue-600 hover:text-blue-500">
-                                                Mulai Belajar &rarr;
-                                            </a>
+                                            @php
+                                                $firstContent = $course->contents->first();
+                                            @endphp
+
+                                            @if($firstContent)
+                                                <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $firstContent]) }}" class="font-semibold text-blue-600 hover:text-blue-500">
+                                                    Mulai Belajar &rarr;
+                                                </a>
+                                            @else
+                                                <span class="text-sm text-gray-500">Materi belum tersedia</span>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
