@@ -19,21 +19,28 @@ class LessonController extends Controller
         }
 
         if ($content->course_id !== $course->id) {
-            abort(404); 
+            abort(404);
         }
 
         $courseContents = $course->contents()->orderBy('order', 'asc')->get();
 
         $completedContentIds = $user->progress()
-                                ->whereIn('content_id', $courseContents->pluck('id'))
-                                ->pluck('content_id') 
-                                ->toArray();
+                                  ->whereIn('content_id', $courseContents->pluck('id'))
+                                  ->pluck('content_id')
+                                  ->toArray();
+
+
+        $nextContent = $course->contents()
+                              ->where('order', '>', $content->order) 
+                              ->orderBy('order', 'asc') 
+                              ->first();
 
         return view('lessons.show', [
             'course' => $course,
             'content' => $content,
             'courseContents' => $courseContents,
             'completedContentIds' => $completedContentIds,
+            'nextContent' => $nextContent, 
         ]);
     }
 }

@@ -49,23 +49,32 @@
                 <hr class="my-6">
 
                 <div class="flex items-center justify-between">
-                    @php
-                        $isCompleted = in_array($content->id, $completedContentIds);
-                    @endphp
+                        @php
+                            $isCompleted = in_array($content->id, $completedContentIds);
+                        @endphp
 
-                    @if($isCompleted)
-                        <span class="font-semibold text-green-600">&#10003; Selesai</span>
-                    @else
-                        <form action="{{ route('lesson.complete', $content) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500">
-                                Tandai Selesai
-                            </button>
-                        </form>
-                    @endif
+                        @if($isCompleted)
+                            <span class="font-semibold text-green-600">&#10003; Selesai</span>
+                        @else
+                            <form action="{{ route('lesson.complete', $content) }}" method="POST">
+                                @csrf
+                                <button type*="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500">
+                                    Tandai Selesai
+                                </button>
+                            </form>
+                        @endif
 
-                    {{-- Logika untuk Tombol Lanjutkan --}}
-                    {{-- (Ini akan kita tambahkan nanti setelah "Mark as Done" berfungsi) --}}
+                        @if($isCompleted && $nextContent)
+                            <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $nextContent]) }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500">
+                                Lanjutkan &rarr;
+                            </a>
+                        @elseif($isCompleted && !$nextContent)
+                            <span class="font-semibold text-green-600">Kursus Selesai!</span>
+                        @else
+                            <span class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest cursor-not-allowed">
+                                Lanjutkan &rarr;
+                            </span>
+                        @endif
                 </div>
 
             </div>
