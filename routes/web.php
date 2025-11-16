@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
