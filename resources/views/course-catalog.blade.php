@@ -43,6 +43,18 @@
             <main class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+                    @if (session('success'))
+                        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg shadow-sm">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg shadow-sm">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <div class="mb-8 p-6 bg-white rounded-lg shadow-sm">
                         <h2 class="text-2xl font-semibold mb-4">Cari Kursus</h2>
                         <form action="{{ route('course.catalog') }}" method="GET">
@@ -91,7 +103,25 @@
                                                     Hubungi Teacher
                                                 </a>
 
-                                                {{-- <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-500">Ikuti Kursus</a> --}}
+                                                @auth
+                                                    @if(auth()->user()->role === 'student')
+                                                        
+                                                        {{-- Cek apakah ID kursus ini ada di array $enrolledCourseIds --}}
+                                                        @if(in_array($course->id, $enrolledCourseIds))
+                                                            <span class="text-sm font-semibold text-green-600">
+                                                                &#10003; Sudah Terdaftar
+                                                            </span>
+                                                        @else
+                                                            <form action="{{ route('courses.enroll', $course) }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="text-sm font-semibold text-blue-600 hover:text-blue-500">
+                                                                    Ikuti Kursus
+                                                                </button>
+                                                            </form>
+                                                        @endif
+
+                                                    @endif
+                                                @endauth
                                             </div>
                                         </div>
                                     @endforeach

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Category;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -43,9 +43,15 @@ class HomeController extends Controller
                         ->withCount('students') 
                         ->paginate(9); 
 
+        $enrolledCourseIds = [];
+        if (Auth::check() && Auth::user()->role === 'student') {
+            $enrolledCourseIds = Auth::user()->enrolledCourses()->pluck('courses.id')->toArray();
+        }
+
         return view('course-catalog', [
             'courses' => $courses,
             'categories' => $categories,
+            'enrolledCourseIds' => $enrolledCourseIds,                
         ]);
     }
 }
