@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreContentRequest extends FormRequest
@@ -22,10 +23,22 @@ class StoreContentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $courseId = $this->route('course')->id;
+
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => [
+                'required', 
+                'string', 
+                'max:255',
+                Rule::unique('contents')->where('course_id', $courseId)
+            ],
             'body' => ['required', 'string'],
-            'order' => ['nullable', 'integer'],
+            'order' => [
+                'nullable', 
+                'integer', 
+                'min:0',
+                Rule::unique('contents')->where('course_id', $courseId)
+            ],
         ];
     }
-}
+}    

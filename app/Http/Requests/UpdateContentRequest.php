@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateContentRequest extends FormRequest
 {
@@ -22,10 +23,28 @@ class UpdateContentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $content = $this->route('content');
+        $courseId = $content->course_id;
+        $contentId = $content->id;
+
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => [
+                'required', 
+                'string', 
+                'max:255',
+                Rule::unique('contents')
+                    ->where('course_id', $courseId)
+                    ->ignore($contentId) 
+            ],
             'body' => ['required', 'string'],
-            'order' => ['nullable', 'integer'],
+            'order' => [
+                'nullable', 
+                'integer', 
+                'min:0',
+                Rule::unique('contents')
+                    ->where('course_id', $courseId)
+                    ->ignore($contentId)
+            ],
         ];
     }
 }
