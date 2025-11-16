@@ -11,7 +11,6 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
-Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -38,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])
             ->middleware('role:student') 
             ->name('courses.enroll');
+
+    Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
+        
 
 });
 
