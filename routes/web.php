@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/lesson/{content}/complete', [ProgressController::class, 'store'])
         ->name('lesson.complete');
 
+    Route::get('/courses/{course}/student-progress', [CourseController::class, 'studentProgress'])
+         ->name('courses.student.progress');    
+
 });
 
 require __DIR__.'/auth.php';

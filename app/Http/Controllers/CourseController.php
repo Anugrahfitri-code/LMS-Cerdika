@@ -103,4 +103,29 @@ class CourseController extends Controller
         $course->delete();
         return redirect()->route('courses.index')->with('success', 'Kursus berhasil dihapus.');
     }
+
+    public function studentProgress(Course $course)
+    {
+        $this->authorize('update', $course);
+
+        $students = $course->students()->get(); 
+        $totalContents = $course->contents()->count(); 
+        $contentIds = $course->contents->pluck('id');
+
+        foreach ($students as $student) {
+            $completedCount = $student->progress()
+                                    ->whereIn('content_id', $contentIds)
+                                    ->count();
+
+            $student->completed_count = $completedCount; 
+
+            if ($totalContents > 0) {
+                $student->progress_percentage = ($completedCount / $totalContents) * 100;
+            } else {
+                $student->progress_percentage = 0;
+            }
+        }
+
+        return view('courses.student-progress', compact('course', 'students', 'totalContents'));
+    }
 }

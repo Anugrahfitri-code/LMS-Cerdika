@@ -79,7 +79,7 @@
                                             <a href="{{ route('courses.contents.index', $course) }}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 mr-4">
                                                 Kelola Materi
                                             </a>
-                                            <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-500">
+                                            <a href="{{ route('courses.student.progress', $course) }}" class="text-sm font-semibold text-blue-600 hover:text-blue-500">
                                                 Lihat Progres Siswa
                                             </a>
                                         </div>
