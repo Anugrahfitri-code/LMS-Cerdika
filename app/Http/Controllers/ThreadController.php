@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Thread;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class ThreadController extends Controller
 {

@@ -11,7 +11,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgressController;
-use App\HttpControllers\ThreadController;
+use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\PostController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');

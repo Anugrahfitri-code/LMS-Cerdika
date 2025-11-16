@@ -6,6 +6,7 @@ use App\Models\Thread;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {

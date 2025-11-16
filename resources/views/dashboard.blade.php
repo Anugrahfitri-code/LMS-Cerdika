@@ -75,9 +75,12 @@
                                             <span class="text-sm text-gray-600">{{ $course->students_count }} Siswa Terdaftar</span>
                                         </div>
                                         <div>
-                                            {{-- Nanti link ini bisa ke halaman 'progress student' --}}
                                             <a href="{{ route('courses.contents.index', $course) }}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 mr-4">
                                                 Kelola Materi
+                                            </a>
+
+                                            <a href="{{ route('courses.threads.index', $course) }}" class="text-sm font-semibold text-green-600 hover:text-green-500 mr-4">
+                                                Forum Diskusi
                                             </a>
                                             <a href="{{ route('courses.student.progress', $course) }}" class="text-sm font-semibold text-blue-600 hover:text-blue-500">
                                                 Lihat Progres Siswa
