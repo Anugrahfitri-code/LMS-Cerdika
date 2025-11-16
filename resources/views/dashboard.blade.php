@@ -46,6 +46,12 @@
                                             @else
                                                 <span class="text-sm text-gray-500">Materi belum tersedia</span>
                                             @endif
+
+                                            @if($course->progress_percentage == 100)
+                                                <a href="{{ route('courses.certificate', $course) }}" class="inline-block mt-4 px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500">
+                                                    Unduh Sertifikat
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach

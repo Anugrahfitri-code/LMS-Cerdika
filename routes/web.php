@@ -13,6 +13,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CertificateController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
@@ -68,6 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
          ->name('posts.destroy');     
 
+    Route::get('/courses/{course}/certificate', [CertificateController::class, 'generate'])
+             ->name('courses.certificate');     
 });
 
 require __DIR__.'/auth.php';
