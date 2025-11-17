@@ -88,7 +88,7 @@
 
                     <div class="hidden md:block w-px bg-gray-200 my-2"></div>
 
-                    <div class="relative md:w-1/4 group">
+                    <div class="relative md:w-auto md:min-w-[220px] group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                         </div>
