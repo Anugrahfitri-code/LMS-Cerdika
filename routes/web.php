@@ -16,6 +16,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CertificateController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
+// Rute Detail Kursus (Publik)
+Route::get('/course/{course}', [HomeController::class, 'show'])->name('public.course.show');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

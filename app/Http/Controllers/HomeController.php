@@ -54,4 +54,15 @@ class HomeController extends Controller
             'enrolledCourseIds' => $enrolledCourseIds,                
         ]);
     }
+    public function show(Course $course)
+    {
+        if (!$course->is_active) {
+            abort(404);
+        }
+
+        $course->load('teacher', 'category', 'contents'); 
+        $course->loadCount('students'); 
+
+        return view('public-course-show', compact('course'));
+    }
 }

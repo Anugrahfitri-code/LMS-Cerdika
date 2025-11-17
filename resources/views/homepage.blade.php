@@ -97,7 +97,7 @@
                                                 <div class="mt-4 flex items-center justify-between">
                                                     <span class="text-sm font-medium text-gray-700">{{ $course->students_count }} Peserta</span>
                                                     {{-- Nanti ganti # dengan link ke detail course --}}
-                                                    <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-500">Lihat Detail</a>
+                                                    <a href="{{ route('public.course.show', $course) }}" class="text-sm font-semibold text-blue-600 hover:text-blue-500">Lihat Detail</a>
                                                 </div>
                                             </div>
                                         </div>
