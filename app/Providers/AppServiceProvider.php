@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Course;
 use App\Policies\CoursePolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Pagination\Paginator; 
 use App\Models\Content;
 use App\Policies\ContentPolicy;
 use App\Models\Post;
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useTailwind();
         Gate::policy(Course::class, CoursePolicy::class);
         Gate::policy(Content::class, ContentPolicy::class);
         Gate::policy(Post::class, PostPolicy::class); // <-- TAMBAHKAN INI
