@@ -47,8 +47,8 @@
                 <hr class="my-6">
 
                 <div class="prose max-w-none text-gray-700">
-                    {{-- Kita gunakan nl2br() agar baris baru (enter) di textarea tampil sebagai <br> --}}
-                    {!! nl2br(e($content->body)) !!}
+                    {{-- Tampilkan HTML secara langsung tanpa di-escape --}}
+                    {!! $content->body !!}
                 </div>
 
                 <hr class="my-6">
