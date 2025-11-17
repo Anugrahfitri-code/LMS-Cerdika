@@ -45,7 +45,9 @@
                                 Katalog
                             </a>
                         @else
-                            <a href="{{ route('login') }}" class="text-white/90 font-medium hover:text-white transition px-3">Masuk</a>
+                        <a href="{{ route('login') }}" class="px-6 py-2.5 text-white text-sm font-bold border-2 border-white rounded-full hover:bg-white hover:text-blue-700 transition-all duration-300">
+                            Masuk
+                        </a>
                             <a href="{{ route('register') }}" class="px-6 py-2.5 bg-white text-blue-700 rounded-full text-sm font-bold hover:bg-blue-50 transition shadow-lg shadow-blue-900/20">
                                 Daftar Gratis
                             </a>
