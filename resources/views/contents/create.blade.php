@@ -29,7 +29,8 @@
 
                         <div class="mt-4">
                             <label for="body" class="block font-medium text-sm text-gray-700">Isi Materi</label>
-                            <textarea id="body" name="body" rows="10" class="block mt-1 w-full rounded-md shadow-sm border-gray-300">{{ old('body') }}</textarea>
+                            <input id="body" type="hidden" name="body" value="{{ old('body') }}">
+                            <trix-editor input="body" class="trix-content bg-white min-h-[300px] border-gray-300 rounded-md shadow-sm"></trix-editor>
                         </div>
 
                         <div class="mt-4">
