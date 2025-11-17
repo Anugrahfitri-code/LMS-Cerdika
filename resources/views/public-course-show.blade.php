@@ -165,9 +165,20 @@
                                             </p>
                                         </div>
                                         
-                                        <a href="{{ route('dashboard') }}" class="block w-full text-center px-6 py-3.5 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 shadow-lg shadow-green-600/30 transition-all transform hover:-translate-y-0.5">
-                                            Lanjutkan Belajar &rarr;
-                                        </a>
+                                        @php
+                                            $firstLesson = $course->contents->sortBy('order')->first();
+                                        @endphp
+
+                                        @if($firstLesson)
+                                            <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $firstLesson]) }}" class="block w-full text-center px-6 py-3.5 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 shadow-lg shadow-green-600/30 transition-all transform hover:-translate-y-0.5">
+                                                Lanjutkan Belajar &rarr;
+                                            </a>
+                                        @else
+                                            {{-- Jika kursus belum ada materinya, baru kita lempar ke dashboard --}}
+                                            <a href="{{ route('dashboard') }}" class="block w-full text-center px-6 py-3.5 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 shadow-lg shadow-green-600/30 transition-all transform hover:-translate-y-0.5">
+                                                Ke Dashboard
+                                            </a>
+                                        @endif
                                     @else
                                         <form action="{{ route('courses.enroll', $course) }}" method="POST">
                                             @csrf
