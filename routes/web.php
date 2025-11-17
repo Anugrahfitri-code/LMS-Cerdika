@@ -15,7 +15,11 @@ use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CertificateController;
 
+// Rute AJAX Filter Homepage
+Route::get('/courses/filter', [HomeController::class, 'filter'])->name('courses.filter');
+
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
+
 // Rute Detail Kursus (Publik)
 Route::get('/course/{course}', [HomeController::class, 'show'])->name('public.course.show');
 

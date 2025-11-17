@@ -13,22 +13,12 @@
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
         .hero-pattern {
             background-color: #1e40af;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.12'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
-        /* Hide scrollbar for category tabs */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="antialiased bg-gray-50">
@@ -70,7 +60,6 @@
                 <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-500/30 rounded-full blur-3xl"></div>
                 <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/30 rounded-full blur-3xl"></div>
             </div>
-
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
                 <span class="inline-block py-1 px-3 rounded-full bg-blue-800/50 border border-blue-400/30 text-blue-100 text-xs font-bold tracking-wider mb-6 uppercase">
                     Platform Belajar Masa Depan
@@ -132,14 +121,14 @@
                     </div>
 
                     <div class="relative border-b border-gray-200 mb-8">
-                        <div class="flex space-x-8 overflow-x-auto no-scrollbar pb-1">
-                            {{-- Loop Kategori untuk Menu --}}
-                            @foreach($categories as $index => $category)
-                                <a href="{{ route('course.catalog', ['category' => $category->slug]) }}" 
-                                class="whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 
-                                {{ $index === 0 ? 'text-gray-900 border-gray-900' : 'text-gray-500 border-transparent hover:text-gray-800' }}">
+                        <div class="flex space-x-8 overflow-x-auto no-scrollbar pb-1" id="categoryTabs">
+                            <button onclick="filterCourses('all', this)" class="category-btn whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 text-gray-900 border-gray-900">
+                                Semua Kursus
+                            </button>
+                            @foreach($categories as $category)
+                                <button onclick="filterCourses('{{ $category->slug }}', this)" class="category-btn whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 text-gray-500 border-transparent hover:text-gray-800">
                                     {{ $category->name }}
-                                </a>
+                                </button>
                             @endforeach
                         </div>
                     </div>
@@ -153,55 +142,9 @@
                             </a>
                         </div>
 
-                        @if($popularCourses->isEmpty())
-                            <div class="text-center py-16">
-                                <p class="text-gray-500 font-medium">Belum ada data kursus populer saat ini.</p>
-                            </div>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                @foreach($popularCourses->take(4) as $course)
-                                    <div class="group bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col h-full">
-                                        <a href="{{ route('public.course.show', $course) }}" class="block h-full flex flex-col">
-                                            <div class="relative h-40 bg-gray-200 rounded-t-lg overflow-hidden">
-                                                {{-- Placeholder Gambar --}}
-                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($course->title) }}&background=random&size=400" alt="{{ $course->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                <div class="absolute top-0 right-0 bg-black/50 text-white text-xs font-bold px-2 py-1 m-2 rounded">
-                                                    {{ $course->category->name }}
-                                                </div>
-                                            </div>
-
-                                            <div class="p-4 flex flex-col flex-grow">
-                                                <h4 class="text-base font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-700 transition-colors">
-                                                    {{ $course->title }}
-                                                </h4>
-                                                <p class="text-xs text-gray-500 mt-1 truncate">{{ $course->teacher->name }}</p>
-                                                
-                                                <div class="flex items-center mt-2 mb-1">
-                                                    <span class="text-sm font-bold text-orange-800 mr-1">4.8</span>
-                                                    <div class="flex text-orange-400 text-xs">
-                                                        ★★★★★
-                                                    </div>
-                                                    <span class="text-xs text-gray-400 ml-1">({{ $course->students_count * 12 }})</span>
-                                                </div>
-
-                                                <div class="mt-auto pt-2 flex items-center justify-between">
-                                                    <div class="flex flex-col">
-                                                        <span class="text-lg font-bold text-gray-900">Gratis</span>
-                                                        <span class="text-xs text-gray-500 line-through">Rp 149.000</span>
-                                                    </div>
-                                                    
-                                                    @if($course->students_count > 5)
-                                                        <span class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-sm uppercase">
-                                                            Terlaris
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
+                        <div id="courseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[300px] transition-opacity duration-300">
+                            @include('partials.course-cards', ['courses' => $popularCourses->take(4)])
+                        </div>
 
                         <div class="mt-8 text-center">
                             <a href="{{ route('course.catalog') }}" class="inline-block px-6 py-3 border border-gray-900 text-gray-900 font-bold rounded-md hover:bg-gray-100 transition">
@@ -247,5 +190,31 @@
         </footer>
 
     </div>
+
+    <script>
+        function filterCourses(categorySlug, btnElement) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('text-gray-900', 'border-gray-900');
+                btn.classList.add('text-gray-500', 'border-transparent');
+            });
+            
+            btnElement.classList.remove('text-gray-500', 'border-transparent');
+            btnElement.classList.add('text-gray-900', 'border-gray-900');
+
+            const container = document.getElementById('courseContainer');
+            container.style.opacity = '0.5';
+
+            fetch(`{{ route('courses.filter') }}?category=${categorySlug}`)
+                .then(response => response.text())
+                .then(html => {
+                    container.innerHTML = html;
+                    container.style.opacity = '1'; 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    container.style.opacity = '1';
+                });
+        }
+    </script>
 </body>
 </html>

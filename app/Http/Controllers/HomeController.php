@@ -65,4 +65,19 @@ class HomeController extends Controller
 
         return view('public-course-show', compact('course'));
     }
+    public function filter(Request $request)
+    {
+        $slug = $request->category;
+        $query = Course::query()->where('is_active', true);
+
+        if ($slug && $slug !== 'all') {
+            $query->whereHas('category', function($q) use ($slug) {
+                $q->where('slug', $slug);
+            });
+        }
+
+        $courses = $query->withCount('students')->take(4)->get();
+
+        return view('partials.course-cards', compact('courses'))->render();
+    }
 }
