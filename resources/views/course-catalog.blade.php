@@ -55,27 +55,49 @@
                     @else
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 @foreach($courses as $course)
-                                    <div class="border rounded-lg overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition-shadow duration-300">
-                                        <div class="p-4 flex-grow">
-                                            <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">{{ $course->category->name }}</span>
+                                    <div class="group bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full">
+                                        
+                                        <a href="{{ route('public.course.show', $course) }}" class="block flex-grow flex flex-col">
                                             
-                                            <a href="{{ route('public.course.show', $course) }}" class="block">
-                                                <h3 class="text-lg font-bold mt-2 text-gray-900 hover:text-blue-600 transition-colors">
+                                            <div class="relative h-48 bg-gray-200 rounded-t-lg overflow-hidden">
+                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($course->title) }}&background=random&size=400" alt="{{ $course->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                                <div class="absolute top-0 right-0 bg-black/50 text-white text-xs font-bold px-2 py-1 m-2 rounded">
+                                                    {{ $course->category->name }}
+                                                </div>
+                                            </div>
+
+                                            <div class="p-4 flex flex-col flex-grow">
+                                                <h3 class="text-lg font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-700 transition-colors">
                                                     {{ $course->title }}
                                                 </h3>
-                                            </a>
+                                                
+                                                <p class="text-xs text-gray-500 mt-1 truncate">{{ $course->teacher->name }}</p>
+                                                
+                                                <div class="flex items-center mt-2 mb-1">
+                                                    <span class="text-sm font-bold text-orange-800 mr-1">4.8</span>
+                                                    <div class="flex text-orange-400 text-xs">
+                                                        ★★★★★
+                                                    </div>
+                                                    <span class="text-xs text-gray-400 ml-1">({{ $course->students_count * 12 }})</span>
+                                                </div>
 
-                                            <p class="text-sm text-gray-600 mt-1">oleh {{ $course->teacher->name }}</p>
-                                            <p class="text-sm text-gray-700 mt-2 line-clamp-3">
-                                                {{ Str::limit(strip_tags($course->description), 100) }}
-                                            </p>
+                                                <p class="text-sm text-gray-600 mt-2 line-clamp-2 mb-4">
+                                                    {{ Str::limit(strip_tags($course->description), 80) }}
+                                                </p>
 
-                                            <div class="mt-3">
-                                                <a href="{{ route('public.course.show', $course) }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 hover:underline">
-                                                    Lihat Detail Selengkapnya &rarr;
-                                                </a>
+                                                <div class="mt-auto flex items-end justify-between">
+                                                    <div class="flex flex-col">
+                                                        <span class="text-lg font-bold text-gray-900">Gratis</span>
+                                                        <span class="text-xs text-gray-500 line-through">Rp 149.000</span>
+                                                    </div>
+                                                    @if($course->students_count > 5)
+                                                        <span class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-sm uppercase">
+                                                            Terlaris
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
 
                                         <div class="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
                                             <a href="mailto:{{ $course->teacher->email }}" class="text-sm font-semibold text-gray-500 hover:text-gray-700 flex items-center">
@@ -86,14 +108,14 @@
                                             @auth
                                                 @if(auth()->user()->role === 'student')
                                                     @if(in_array($course->id, $enrolledCourseIds))
-                                                        <span class="text-sm font-bold text-green-600 flex items-center">
+                                                        <span class="text-sm font-bold text-green-600 flex items-center bg-green-50 px-2 py-1 rounded-md border border-green-200">
                                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                                             Terdaftar
                                                         </span>
                                                     @else
                                                         <form action="{{ route('courses.enroll', $course) }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="text-sm font-bold text-blue-600 hover:text-blue-800 border border-blue-600 hover:bg-blue-50 px-3 py-1 rounded transition-colors">
+                                                            <button type="submit" class="text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition-colors shadow-sm">
                                                                 Ikuti Kursus
                                                             </button>
                                                         </form>
@@ -101,6 +123,7 @@
                                                 @endif
                                             @endauth
                                         </div>
+
                                     </div>
                                 @endforeach
                         </div>
