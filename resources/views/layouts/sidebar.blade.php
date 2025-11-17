@@ -7,6 +7,9 @@
 
     <nav class="flex-1 overflow-y-auto py-6">
         <div class="space-y-1">
+            <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
+                {{ __('Beranda') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
