@@ -13,10 +13,15 @@
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
         .hero-pattern {
             background-color: #1e40af;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.12'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
+        /* Hide scrollbar for category tabs */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -60,6 +65,7 @@
                 <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-500/30 rounded-full blur-3xl"></div>
                 <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/30 rounded-full blur-3xl"></div>
             </div>
+
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
                 <span class="inline-block py-1 px-3 rounded-full bg-blue-800/50 border border-blue-400/30 text-blue-100 text-xs font-bold tracking-wider mb-6 uppercase">
                     Platform Belajar Masa Depan
@@ -108,6 +114,7 @@
         </div>
 
         <main class="flex-grow py-20">
+            
             <section class="py-12 bg-white">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
@@ -122,11 +129,11 @@
 
                     <div class="relative border-b border-gray-200 mb-8">
                         <div class="flex space-x-8 overflow-x-auto no-scrollbar pb-1" id="categoryTabs">
-                            <button onclick="filterCourses('all', this)" class="category-btn whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 text-gray-900 border-gray-900">
+                            <button id="btn-all" onclick="filterCourses('all', this)" class="category-btn whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 text-gray-900 border-gray-900">
                                 Semua Kursus
                             </button>
                             @foreach($categories as $category)
-                                <button onclick="filterCourses('{{ $category->slug }}', this)" class="category-btn whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 text-gray-500 border-transparent hover:text-gray-800">
+                                <button id="btn-{{ $category->slug }}" onclick="filterCourses('{{ $category->slug }}', this)" class="category-btn whitespace-nowrap pb-3 text-sm font-bold transition-colors border-b-2 text-gray-500 border-transparent hover:text-gray-800">
                                     {{ $category->name }}
                                 </button>
                             @endforeach
@@ -155,6 +162,7 @@
                     </div>
                 </div>
             </section>
+
             <section class="py-16 bg-white border-t border-gray-100">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
@@ -169,20 +177,17 @@
                         <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full">
                             <div class="text-5xl text-gray-900 font-serif leading-none mb-4">“</div>
                             <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">
-                                LMS-Cerdika dinilai sebagai platform kursus online terpopuler untuk belajar coding. Materi yang disajikan sangat terstruktur dan mudah dipahami oleh pemula sekalipun.
+                                LMS-Cerdika dinilai sebagai platform kursus online terpopuler untuk belajar coding. Materi yang disajikan sangat terstruktur.
                             </p>
-                            
                             <div class="flex items-center gap-3 border-t border-gray-50 pt-4 mt-auto">
-                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-xs">
-                                    SO
-                                </div>
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-xs">SO</div>
                                 <div>
-                                    <h5 class="font-bold text-sm text-gray-900">StackOverflow Survey</h5>
+                                    <h5 class="font-bold text-sm text-gray-900">StackOverflow</h5>
                                     <p class="text-xs text-gray-500">37,076 responden</p>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="{{ route('course.catalog') }}" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="selectCategory('web-development')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Lihat kursus Web Dev &rarr;
                                 </a>
                             </div>
@@ -191,9 +196,8 @@
                         <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full">
                             <div class="text-5xl text-gray-900 font-serif leading-none mb-4">“</div>
                             <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">
-                                LMS-Cerdika benar-benar menjadi <em>game-changer</em> bagi saya. Saya bisa membangun startup saya sendiri berkat ilmu manajemen dan teknis yang saya pelajari di sini.
+                                LMS-Cerdika benar-benar menjadi game-changer bagi saya. Saya bisa membangun startup saya sendiri berkat ilmu ini.
                             </p>
-                            
                             <div class="flex items-center gap-3 border-t border-gray-50 pt-4 mt-auto">
                                 <img src="https://ui-avatars.com/api/?name=Alvin+Lim&background=random" alt="Alvin" class="w-10 h-10 rounded-full">
                                 <div>
@@ -202,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="{{ route('course.catalog') }}" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="selectCategory('digital-marketing')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Lihat kursus Bisnis &rarr;
                                 </a>
                             </div>
@@ -211,9 +215,8 @@
                         <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full">
                             <div class="text-5xl text-gray-900 font-serif leading-none mb-4">“</div>
                             <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">
-                                Platform ini memberi Anda kemampuan untuk konsisten. Saya belajar apa yang dibutuhkan di dunia kerja nyata. Ini membantu saya mendapatkan peran baru di perusahaan besar.
+                                Platform ini memberi kemampuan untuk konsisten. Saya belajar apa yang dibutuhkan di dunia kerja nyata.
                             </p>
-                            
                             <div class="flex items-center gap-3 border-t border-gray-50 pt-4 mt-auto">
                                 <img src="https://ui-avatars.com/api/?name=William+Wachlin&background=random" alt="William" class="w-10 h-10 rounded-full">
                                 <div>
@@ -222,8 +225,8 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="{{ route('course.catalog') }}" class="text-blue-600 font-bold text-sm hover:underline">
-                                    Lihat kursus AWS &rarr;
+                                <a href="#categoryTabs" onclick="selectCategory('mobile-development')" class="text-blue-600 font-bold text-sm hover:underline">
+                                    Lihat kursus Mobile &rarr;
                                 </a>
                             </div>
                         </div>
@@ -231,9 +234,8 @@
                         <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full">
                             <div class="text-5xl text-gray-900 font-serif leading-none mb-4">“</div>
                             <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">
-                                Dengan LMS-Cerdika, karyawan kami mampu menggabungkan teknologi dan soft skills. Ini sangat membantu mendorong karier mereka ke level selanjutnya.
+                                Karyawan kami mampu menggabungkan teknologi dan soft skills. Ini sangat membantu mendorong karier mereka.
                             </p>
-                            
                             <div class="flex items-center gap-3 border-t border-gray-50 pt-4 mt-auto">
                                 <img src="https://ui-avatars.com/api/?name=Ian+Stevens&background=random" alt="Ian" class="w-10 h-10 rounded-full">
                                 <div>
@@ -242,23 +244,16 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="{{ route('course.catalog') }}" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="selectCategory('all')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Baca cerita lengkap &rarr;
                                 </a>
                             </div>
                         </div>
 
                     </div>
-
-                    <div class="mt-8">
-                        <a href="#" class="text-blue-600 font-bold hover:text-blue-800 flex items-center gap-1 transition">
-                            Lihat semua cerita sukses 
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
-                    </div>
-
                 </div>
             </section>
+
         </main>
 
         <footer class="bg-white border-t border-gray-200 pt-12 pb-8">
@@ -301,7 +296,6 @@
                 btn.classList.remove('text-gray-900', 'border-gray-900');
                 btn.classList.add('text-gray-500', 'border-transparent');
             });
-            
             btnElement.classList.remove('text-gray-500', 'border-transparent');
             btnElement.classList.add('text-gray-900', 'border-gray-900');
 
@@ -312,12 +306,20 @@
                 .then(response => response.text())
                 .then(html => {
                     container.innerHTML = html;
-                    container.style.opacity = '1'; 
+                    container.style.opacity = '1';
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     container.style.opacity = '1';
                 });
+        }
+
+        function selectCategory(slug) {
+            const btn = document.getElementById('btn-' + slug);
+            if (btn) {
+                btn.click();
+                btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
     </script>
 </body>
