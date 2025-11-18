@@ -1,4 +1,21 @@
 <x-guest-layout>
+    @if(request('notice') == 'certification')
+        <div class="mb-6 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-md shadow-sm">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-bold text-indigo-800">Ingin Mendapatkan Sertifikat?</h3>
+                    <div class="mt-1 text-sm text-indigo-700">
+                        Silakan <strong>Masuk</strong> atau <strong>Daftar Akun</strong> terlebih dahulu untuk mengakses materi ujian dan klaim sertifikat digital Anda.
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
