@@ -30,13 +30,24 @@
 
         <main class="flex-grow py-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-4">
-                    <a href="{{ route('course.catalog') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                        </svg>
-                        Kembali ke Katalog
-                    </a>
+                <div class="mb-6">
+                    @auth
+                        {{-- Jika User Sudah Login: Arahkan ke Katalog --}}
+                        <a href="{{ route('course.catalog') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Kembali ke Katalog
+                        </a>
+                    @else
+                        {{-- Jika Tamu (Belum Login): Arahkan ke Beranda --}}
+                        <a href="{{ route('homepage') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Kembali ke Beranda
+                        </a>
+                    @endauth
                 </div>
                 <nav class="flex mb-6" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
