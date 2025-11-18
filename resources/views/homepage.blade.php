@@ -340,7 +340,7 @@
                         <h3 class="font-bold text-gray-900 mb-4">Navigasi</h3>
                         <ul class="space-y-2 text-gray-600">
                             <li><a href="{{ route('homepage') }}" class="hover:text-blue-600">Beranda</a></li>
-                            <li><a href="{{ route('course.catalog') }}" class="hover:text-blue-600">Katalog Kursus</a></li>
+                            <li><a href="{{ route('login', ['notice' => 'catalog']) }}" class="hover:text-blue-600">Katalog Kursus</a></li>
                             <li><a href="{{ route('login') }}" class="hover:text-blue-600">Masuk / Daftar</a></li>
                         </ul>
                     </div>

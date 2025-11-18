@@ -16,6 +16,23 @@
             </div>
         </div>
     @endif
+    @if(request('notice') == 'catalog')
+        <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-md shadow-sm">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-bold text-blue-800">Akses Katalog Lengkap</h3>
+                    <div class="mt-1 text-sm text-blue-700">
+                        Untuk menjelajahi seluruh kursus dan materi pembelajaran, silakan <strong>Masuk</strong> atau <strong>Daftar</strong> terlebih dahulu.
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
