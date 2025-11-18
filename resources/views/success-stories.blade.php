@@ -38,9 +38,17 @@
         </nav>
 
         <div class="relative hero-pattern py-20 text-center text-white">
+            <div class="absolute top-6 left-4 md:left-8 z-20">
+                <a href="{{ route('homepage') }}" class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-semibold text-white hover:bg-white/20 transition group">
+                    <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Kembali ke Beranda
+                </a>
+            </div>
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <span class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-blue-100 text-xs font-bold tracking-wider mb-6 uppercase">
-                    Wall of Love
+                    Kumpulan Kisah Sukses Alumni
                 </span>
                 <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
                     Mereka yang Telah Berhasil <br>Mewujudkan Mimpi
