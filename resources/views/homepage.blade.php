@@ -65,7 +65,6 @@
                 <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-500/30 rounded-full blur-3xl"></div>
                 <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/30 rounded-full blur-3xl"></div>
             </div>
-
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
                 <span class="inline-block py-1 px-3 rounded-full bg-blue-800/50 border border-blue-400/30 text-blue-100 text-xs font-bold tracking-wider mb-6 uppercase">
                     Platform Belajar Masa Depan
@@ -187,7 +186,7 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="#categoryTabs" onclick="selectCategory('web-development')" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="filterAndNotify('web-development', 'Web Development')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Lihat kursus Web Dev &rarr;
                                 </a>
                             </div>
@@ -206,7 +205,7 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="#categoryTabs" onclick="selectCategory('digital-marketing')" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="filterAndNotify('digital-marketing', 'Digital Marketing')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Lihat kursus Bisnis &rarr;
                                 </a>
                             </div>
@@ -225,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="#categoryTabs" onclick="selectCategory('mobile-development')" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="filterAndNotify('mobile-development', 'Mobile Development')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Lihat kursus Mobile &rarr;
                                 </a>
                             </div>
@@ -244,13 +243,21 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="#categoryTabs" onclick="selectCategory('all')" class="text-blue-600 font-bold text-sm hover:underline">
+                                <a href="#categoryTabs" onclick="filterAndNotify('all', 'Semua Kategori')" class="text-blue-600 font-bold text-sm hover:underline">
                                     Baca cerita lengkap &rarr;
                                 </a>
                             </div>
                         </div>
 
                     </div>
+
+                    <div class="mt-8">
+                        <a href="#" class="text-blue-600 font-bold hover:text-blue-800 flex items-center gap-1 transition">
+                            Lihat semua cerita sukses 
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+
                 </div>
             </section>
 
@@ -273,12 +280,12 @@
                                 Jelajahi Sertifikasi 
                                 <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </a>
-                        </div>  
+                        </div>
 
                         <div class="lg:w-2/3 w-full relative z-10">
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 
-                                <a href="{{ route('course.catalog', ['category' => 'web-development']) }}" class="block group">
+                                <a href="#categoryTabs" onclick="filterAndNotify('web-development', 'Web Development')" class="block group">
                                     <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300 h-full flex flex-col">
                                         <div class="bg-white w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
                                             <div class="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-50"></div>
@@ -289,7 +296,7 @@
                                     </div>
                                 </a>
 
-                                <a href="{{ route('course.catalog', ['category' => 'data-science']) }}" class="block group">
+                                <a href="#categoryTabs" onclick="filterAndNotify('data-science', 'Data Science')" class="block group">
                                     <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300 h-full flex flex-col">
                                         <div class="bg-white w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
                                             <div class="absolute inset-0 bg-gradient-to-br from-purple-100 to-purple-50"></div>
@@ -300,7 +307,7 @@
                                     </div>
                                 </a>
 
-                                <a href="{{ route('course.catalog', ['category' => 'digital-marketing']) }}" class="block group">
+                                <a href="#categoryTabs" onclick="filterAndNotify('digital-marketing', 'Digital Marketing')" class="block group">
                                     <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300 h-full flex flex-col">
                                         <div class="bg-white w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
                                             <div class="absolute inset-0 bg-gradient-to-br from-orange-100 to-orange-50"></div>
@@ -317,6 +324,7 @@
                     </div>
                 </div>
             </section>
+
         </main>
 
         <footer class="bg-white border-t border-gray-200 pt-12 pb-8">
@@ -353,6 +361,24 @@
 
     </div>
 
+    <div id="login-toast" class="fixed bottom-5 right-5 bg-white border-l-4 border-blue-600 text-gray-800 px-6 py-4 rounded shadow-2xl transform translate-y-full opacity-0 transition-all duration-500 z-50 max-w-md">
+        <div class="flex items-center">
+            <div class="text-blue-600 mr-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm">Mode Preview Tamu</h4>
+                <p class="text-sm text-gray-600 mt-1" id="toast-message">Menampilkan kursus pilihan. Silakan login untuk akses penuh.</p>
+            </div>
+            <button onclick="closeToast()" class="ml-6 text-gray-400 hover:text-gray-900">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="mt-3 text-right">
+            <a href="{{ route('login') }}" class="text-xs font-bold text-blue-600 hover:underline">Login Sekarang &rarr;</a>
+        </div>
+    </div>
+
     <script>
         function filterCourses(categorySlug, btnElement) {
             document.querySelectorAll('.category-btn').forEach(btn => {
@@ -383,6 +409,22 @@
                 btn.click();
                 btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+        }
+
+        function filterAndNotify(slug, name) {
+            selectCategory(slug);
+            const toast = document.getElementById('login-toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.innerText = `Menampilkan preview kursus ${name}. Untuk akses materi lengkap dan sertifikat, Anda perlu Login.`;
+            toast.classList.remove('translate-y-full', 'opacity-0');
+
+            setTimeout(() => { closeToast(); }, 6000);
+        }
+
+        function closeToast() {
+            const toast = document.getElementById('login-toast');
+            toast.classList.add('translate-y-full', 'opacity-0');
         }
     </script>
 </body>
