@@ -27,6 +27,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/success-stories', [HomeController::class, 'stories'])->name('stories');    
+
 Route::middleware('auth')->group(function () { 
     
     // Rute Profile Bawaan

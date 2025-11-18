@@ -252,7 +252,7 @@
                     </div>
 
                     <div class="mt-8">
-                        <a href="#" class="text-blue-600 font-bold hover:text-blue-800 flex items-center gap-1 transition">
+                        <a href="{{ route('stories') }}" class="text-blue-600 font-bold hover:text-blue-800 flex items-center gap-1 transition">
                             Lihat semua cerita sukses 
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </a>
