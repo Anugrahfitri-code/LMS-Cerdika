@@ -254,6 +254,69 @@
                 </div>
             </section>
 
+            <section class="py-12 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="bg-[#1e1e2c] rounded-3xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-12 shadow-2xl overflow-hidden relative">
+                        
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none"></div>
+
+                        <div class="lg:w-1/3 relative z-10">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-4">
+                                Dapatkan sertifikasi dan maju dalam karier Anda
+                            </h2>
+                            <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                                Persiapkan diri untuk dunia kerja profesional. Selesaikan materi, kerjakan tugas akhir, dan raih sertifikat kompetensi resmi dari LMS-Cerdika.
+                            </p>
+                            <a href="{{ route('course.catalog') }}" class="inline-flex items-center text-white font-bold hover:text-blue-300 transition group">
+                                Jelajahi Sertifikasi
+                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+
+                        <div class="lg:w-2/3 w-full relative z-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                
+                                <a href="{{ route('course.catalog', ['category' => 'web-development']) }}" class="block group">
+                                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300 h-full flex flex-col">
+                                        <div class="bg-white w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
+                                            <div class="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-50"></div>
+                                            <span class="relative text-4xl font-bold text-blue-600">&lt;/&gt;</span>
+                                        </div>
+                                        <h4 class="text-white font-bold text-lg mb-1 group-hover:text-blue-300 transition">Web Dev</h4>
+                                        <p class="text-gray-400 text-xs">Laravel, React, Vue, Tailwind</p>
+                                    </div>
+                                </a>
+
+                                <a href="{{ route('course.catalog', ['category' => 'data-science']) }}" class="block group">
+                                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300 h-full flex flex-col">
+                                        <div class="bg-white w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
+                                            <div class="absolute inset-0 bg-gradient-to-br from-purple-100 to-purple-50"></div>
+                                            <span class="relative text-4xl font-bold text-purple-600">Data</span>
+                                        </div>
+                                        <h4 class="text-white font-bold text-lg mb-1 group-hover:text-purple-300 transition">Data Science</h4>
+                                        <p class="text-gray-400 text-xs">Python, SQL, Machine Learning</p>
+                                    </div>
+                                </a>
+
+                                <a href="{{ route('course.catalog', ['category' => 'digital-marketing']) }}" class="block group">
+                                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300 h-full flex flex-col">
+                                        <div class="bg-white w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
+                                            <div class="absolute inset-0 bg-gradient-to-br from-orange-100 to-orange-50"></div>
+                                            <span class="relative text-4xl font-bold text-orange-600">SEO</span>
+                                        </div>
+                                        <h4 class="text-white font-bold text-lg mb-1 group-hover:text-orange-300 transition">Marketing</h4>
+                                        <p class="text-gray-400 text-xs">Ads, Copywriting, Branding</p>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer class="bg-white border-t border-gray-200 pt-12 pb-8">
