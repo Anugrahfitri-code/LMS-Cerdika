@@ -269,11 +269,11 @@
                             <p class="text-gray-300 mb-8 text-lg leading-relaxed">
                                 Persiapkan diri untuk dunia kerja profesional. Selesaikan materi, kerjakan tugas akhir, dan raih sertifikat kompetensi resmi dari LMS-Cerdika.
                             </p>
-                            <a href="{{ route('course.catalog') }}" class="inline-flex items-center text-white font-bold hover:text-blue-300 transition group">
-                                Jelajahi Sertifikasi
+                            <a href="{{ route('course.catalog', ['ref' => 'certification']) }}" class="inline-flex items-center text-white font-bold hover:text-blue-300 transition group">
+                                Jelajahi Sertifikasi dan Voucer
                                 <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </a>
-                        </div>
+                        </div>  
 
                         <div class="lg:w-2/3 w-full relative z-10">
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">

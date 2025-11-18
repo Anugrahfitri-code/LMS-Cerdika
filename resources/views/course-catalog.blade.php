@@ -7,7 +7,29 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+                @if(request('ref') == 'certification')
+                    <div class="bg-[#1e1e2c] rounded-xl p-8 mb-8 shadow-xl relative overflow-hidden border border-gray-700 animate-fade-in-down">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl -ml-10 -mb-10 pointer-events-none"></div>
+                        
+                        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+                            <div class="p-4 bg-white/10 rounded-2xl border border-white/10 shadow-inner">
+                                <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Siap untuk Disertifikasi?</h3>
+                                <p class="text-gray-300 text-base leading-relaxed max-w-2xl">
+                                    Kabar baik! <strong>Semua kursus</strong> di bawah ini menyertakan <span class="text-blue-300 font-semibold">Sertifikat Kelulusan Digital</span> resmi. Selesaikan materi, kerjakan kuis, dan unduh sertifikat Anda langsung dari dashboard untuk meningkatkan profil karier Anda.
+                                </p>
+                            </div>
+                            <div class="md:ml-auto">
+                                <a href="{{ route('course.catalog') }}" class="text-sm text-gray-400 hover:text-white flex items-center transition">
+                                    <span class="mr-1">&times;</span> Tutup info ini
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @if (session('success'))
                 <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg shadow-sm">
                     {{ session('success') }}
