@@ -20,8 +20,18 @@
     </style>
 </head>
 <body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 auth-pattern p-4">
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 auth-pattern p-4 relative">
         
+        <div class="absolute top-6 left-6 z-10">
+            <a href="{{ route('homepage') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group">
+                <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-200 flex items-center justify-center mr-3 group-hover:border-blue-200 group-hover:shadow-md transition-all">
+                    <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                </div>
+                Kembali ke Beranda
+            </a>
+        </div>
         <div class="mb-8 mt-10 text-center">
             <a href="/" class="inline-flex items-center gap-2 group">
                 <div class="bg-blue-600 p-2.5 rounded-xl shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform duration-300">
