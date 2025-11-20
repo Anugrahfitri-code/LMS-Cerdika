@@ -80,7 +80,6 @@
             box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
         }
 
-        /* Floating particles */
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -349,68 +348,80 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        @if(isset($stories) && count($stories) > 0)
-                            @foreach($stories as $story)
-                                <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative flex flex-col h-full">
-                                    
-                                    <div class="absolute top-8 right-8 text-gray-100 group-hover:text-blue-100 transition-colors duration-300">
-                                        <svg class="w-16 h-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"></path>
-                                        </svg>
+                        <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative flex flex-col h-full">
+                            <div class="absolute top-8 right-8 text-gray-100 group-hover:text-blue-100 transition-colors">
+                                <svg class="w-16 h-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"></path></svg>
+                            </div>
+                            <div class="relative z-10 flex-grow">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md bg-blue-100 text-blue-600">
+                                        AL
                                     </div>
-
-                                    <div class="relative z-10 flex-grow">
-                                        <div class="flex items-center gap-4 mb-6">
-                                            <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md {{ $story['avatar_color'] }}">
-                                                {{ substr($story['name'], 0, 2) }}
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-gray-900 text-lg">{{ $story['name'] }}</h4>
-                                                <p class="text-sm text-gray-500">{{ $story['role'] }} @if($story['company']) di <span class="text-blue-600 font-semibold">{{ $story['company'] }}</span> @endif</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <p class="text-gray-600 italic text-lg leading-relaxed mb-6">
-                                            "{{ $story['quote'] }}"
-                                        </p>
-                                    </div>
-
-                                    <div class="pt-6 border-t border-gray-100 mt-auto">
-                                        <div class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-600 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
-                                            <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                            </svg>
-                                            Alumni: {{ $story['course'] }}
-                                        </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-lg">Alvin Lim</h4>
+                                        <p class="text-sm text-gray-500">Founder di <span class="text-blue-600 font-semibold">TechStart</span></p>
                                     </div>
                                 </div>
-                            @endforeach
-                        @else
-                             <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative flex flex-col h-full">
-                                <div class="absolute top-8 right-8 text-gray-100 group-hover:text-blue-100 transition-colors">
-                                    <svg class="w-16 h-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"></path></svg>
-                                </div>
-                                <div class="relative z-10 flex-grow">
-                                    <div class="flex items-center gap-4 mb-6">
-                                        <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md bg-blue-100 text-blue-600">
-                                            AL
-                                        </div>
-                                        <div>
-                                            <h4 class="font-bold text-gray-900 text-lg">Alvin Lim</h4>
-                                            <p class="text-sm text-gray-500">Founder di <span class="text-blue-600 font-semibold">TechStart</span></p>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 italic text-lg leading-relaxed mb-6">
-                                        "LMS-Cerdika benar-benar menjadi game-changer bagi saya. Saya bisa membangun startup saya sendiri berkat ilmu ini."
-                                    </p>
-                                </div>
-                                <div class="pt-6 border-t border-gray-100 mt-auto">
-                                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-600 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
-                                        Alumni: Web Development
-                                    </div>
+                                <p class="text-gray-600 italic text-lg leading-relaxed mb-6">
+                                    "LMS-Cerdika benar-benar menjadi game-changer bagi saya. Saya bisa membangun startup saya sendiri berkat ilmu ini."
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-gray-100 mt-auto">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-600 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
+                                    Alumni: Web Development
                                 </div>
                             </div>
-                        @endif
+                        </div>
+
+                        <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative flex flex-col h-full">
+                            <div class="absolute top-8 right-8 text-gray-100 group-hover:text-blue-100 transition-colors">
+                                <svg class="w-16 h-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"></path></svg>
+                            </div>
+                            <div class="relative z-10 flex-grow">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md bg-green-100 text-green-600">
+                                        WW
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-lg">William A. Wachlin</h4>
+                                        <p class="text-sm text-gray-500">Partner Account Manager</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic text-lg leading-relaxed mb-6">
+                                    "Platform ini memberi kemampuan untuk konsisten. Saya belajar apa yang dibutuhkan di dunia kerja nyata."
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-gray-100 mt-auto">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-600 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
+                                    Alumni: Mobile Development
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative flex flex-col h-full">
+                            <div class="absolute top-8 right-8 text-gray-100 group-hover:text-blue-100 transition-colors">
+                                <svg class="w-16 h-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"></path></svg>
+                            </div>
+                            <div class="relative z-10 flex-grow">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md bg-purple-100 text-purple-600">
+                                        IS
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-lg">Ian Stevens</h4>
+                                        <p class="text-sm text-gray-500">Head of Capability Dev</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic text-lg leading-relaxed mb-6">
+                                    "Karyawan kami mampu menggabungkan teknologi dan soft skills. Ini sangat membantu mendorong karier mereka."
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-gray-100 mt-auto">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-600 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
+                                    Alumni: Data Science
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-16 text-center">
@@ -438,9 +449,6 @@
                             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                                 <a href="{{ route('register') }}" class="px-10 py-4 bg-white text-blue-700 font-bold rounded-full shadow-lg hover:bg-blue-50 hover:scale-105 transition-all duration-300 text-lg">
                                     Daftar Gratis Sekarang
-                                </a>
-                                <a href="{{ route('course.catalog') }}" class="px-10 py-4 bg-blue-800/50 backdrop-blur-sm border border-blue-400/30 text-white font-bold rounded-full hover:bg-blue-800 transition-all duration-300 text-lg">
-                                    Lihat Semua Kursus
                                 </a>
                             </div>
                             <p class="mt-6 text-sm text-blue-200 opacity-80">Tidak perlu kartu kredit • Akses materi gratis tersedia</p>
@@ -569,13 +577,11 @@
 
     <script>
         function filterCourses(categorySlug, btnElement) {
-            // Remove active state from all buttons
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('text-blue-600', 'border-blue-600', 'bg-blue-50');
                 btn.classList.add('text-gray-600', 'border-transparent');
             });
 
-            // Add active state to clicked button
             btnElement.classList.remove('text-gray-600', 'border-transparent');
             btnElement.classList.add('text-blue-600', 'border-blue-600', 'bg-blue-50');
 
@@ -618,7 +624,6 @@
             toast.classList.add('translate-y-full', 'opacity-0');
         }
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
