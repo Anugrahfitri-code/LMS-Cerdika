@@ -27,7 +27,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('/success-stories', [HomeController::class, 'stories'])->name('stories');    
+Route::get('/success-stories', [HomeController::class, 'stories'])->name('stories'); 
+
+Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
 
 Route::middleware('auth')->group(function () { 
     
@@ -51,7 +53,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('role:student') 
             ->name('courses.enroll');
 
-    Route::get('/catalog', [HomeController::class, 'catalog'])->name('course.catalog');
+    
         
     // Rute untuk menampilkan halaman belajar
     Route::get('/courses/{course}/lesson/{content}', [LessonController::class, 'show'])

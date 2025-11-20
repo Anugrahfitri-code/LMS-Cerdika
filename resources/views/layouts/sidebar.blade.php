@@ -15,7 +15,7 @@
     <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
         
         <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-2">Menu Utama</p>
-
+        
         <a href="{{ route('homepage') }}" 
            class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
            {{ request()->routeIs('homepage') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
@@ -23,14 +23,18 @@
             Beranda
         </a>
 
-        <a href="{{ route('dashboard') }}" 
-           class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
-           {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
-            <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }} transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-            Dashboard
-        </a>
+        {{-- Menu Dashboard hanya muncul jika login --}}
+        @auth
+            <a href="{{ route('dashboard') }}" 
+               class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
+               {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }} transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                Dashboard
+            </a>
+        @endauth
 
-        @if(auth()->user()->role === 'admin')
+        {{-- MENU ADMIN --}}
+        @if(auth()->check() && auth()->user()->role === 'admin')
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-6">Administrator</p>
             
             <a href="{{ route('categories.index') }}" 
@@ -39,14 +43,12 @@
                 <svg class="w-5 h-5 mr-3 {{ request()->routeIs('categories.*') ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                 Kategori
             </a>
-
             <a href="{{ route('users.index') }}" 
                class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
                {{ request()->routeIs('users.*') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                 <svg class="w-5 h-5 mr-3 {{ request()->routeIs('users.*') ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 Kelola User
             </a>
-
             <a href="{{ route('courses.index') }}" 
                class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
                {{ request()->routeIs('courses.*') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
@@ -55,7 +57,8 @@
             </a>
         @endif
         
-        @if(auth()->user()->role === 'teacher')
+        {{-- MENU TEACHER --}}
+        @if(auth()->check() && auth()->user()->role === 'teacher')
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-6">Menu Pengajar</p>
             
             <a href="{{ route('courses.index') }}" 
@@ -66,9 +69,9 @@
             </a>
         @endif
         
-        @if(auth()->user()->role === 'student')
+        {{-- MENU STUDENT & GUEST --}}
+        @if(!auth()->check() || auth()->user()->role === 'student')
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-6">Menu Belajar</p>
-
             <a href="{{ route('course.catalog') }}" 
                class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
                {{ request()->routeIs('course.catalog') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
@@ -79,21 +82,31 @@
 
     </nav>
 
+    {{-- PROFIL USER (Bawah) --}}
     <div class="border-t border-gray-100 p-4 bg-gray-50/50">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                {{ substr(auth()->user()->name, 0, 2) }}
+        @auth
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                    {{ substr(auth()->user()->name, 0, 2) }}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-gray-900 truncate">{{ auth()->user()->name }}</p>
+                    <p class="text-xs text-gray-500 truncate capitalize">{{ auth()->user()->role }}</p>
+                </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-50" title="Logout">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </form>
             </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-bold text-gray-900 truncate">{{ auth()->user()->name }}</p>
-                <p class="text-xs text-gray-500 truncate capitalize">{{ auth()->user()->role }}</p>
+        @else
+            <div class="text-center">
+                <p class="text-xs text-gray-500 mb-2">Anda belum login</p>
+                <a href="{{ route('login') }}" class="block w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">
+                    Masuk / Daftar
+                </a>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-50" title="Logout">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                </button>
-            </form>
-        </div>
+        @endauth
     </div>
 </div>

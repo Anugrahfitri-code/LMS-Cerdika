@@ -1,162 +1,220 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Katalog Kursus') }}
-        </h2>
-    </x-slot>
+    {{-- Header dengan Background Gradient Modern --}}
+    <div class="relative bg-gradient-to-r from-blue-600 to-indigo-700 pt-24 pb-32 overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl -ml-10 -mb-10"></div>
+        </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                @if(request('ref') == 'certification')
-                    <div class="bg-[#1e1e2c] rounded-xl p-8 mb-8 shadow-xl relative overflow-hidden border border-gray-700 animate-fade-in-down">
-                        <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-                        <div class="absolute bottom-0 left-0 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl -ml-10 -mb-10 pointer-events-none"></div>
-                        
-                        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-                            <div class="p-4 bg-white/10 rounded-2xl border border-white/10 shadow-inner">
-                                <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-white mb-2">Siap untuk Disertifikasi?</h3>
-                                <p class="text-gray-300 text-base leading-relaxed max-w-2xl">
-                                    Kabar baik! <strong>Semua kursus</strong> di bawah ini menyertakan <span class="text-blue-300 font-semibold">Sertifikat Kelulusan Digital</span> resmi. Selesaikan materi, kerjakan kuis, dan unduh sertifikat Anda langsung dari dashboard untuk meningkatkan profil karier Anda.
-                                </p>
-                            </div>
-                            <div class="md:ml-auto">
-                                <a href="{{ route('course.catalog') }}" class="text-sm text-gray-400 hover:text-white flex items-center transition">
-                                    <span class="mr-1">&times;</span> Tutup info ini
-                                </a>
-                            </div>
-                        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-4xl font-extrabold text-white tracking-tight mb-4">
+                Katalog Kursus
+            </h2>
+            <p class="text-blue-100 text-lg max-w-2xl mx-auto">
+                Temukan materi pembelajaran terbaik untuk meningkatkan keahlian Anda.
+            </p>
+        </div>
+    </div>
+
+    {{-- Search Box Container (Floating Effect) --}}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-8">
+        <div class="bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
+            <form action="{{ route('course.catalog') }}" method="GET" class="flex flex-col md:flex-row gap-4 items-center">
+                
+                {{-- Input Search --}}
+                <div class="flex-grow w-full relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                     </div>
+                    <input type="text" name="search" value="{{ request('search') }}" 
+                           class="block w-full pl-12 pr-4 py-3.5 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white transition-all" 
+                           placeholder="Cari kursus (cth: Laravel, Python)...">
+                </div>
+
+                {{-- Dropdown Kategori --}}
+                <div class="w-full md:w-1/4 relative group">
+                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                    </div>
+                    <select name="category" class="block w-full pl-12 pr-10 py-3.5 border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white transition-all cursor-pointer appearance-none">
+                        <option value="">Semua Kategori</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->slug }}" @selected(request('category') == $cat->slug)>{{ $cat->name }}</option>
+                        @endforeach
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                {{-- Tombol Cari --}}
+                <button type="submit" class="w-full md:w-auto px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center">
+                    Cari Kursus
+                </button>
+            </form>
+        </div>
+
+        {{-- Menampilkan Filter yang Sedang Aktif (Optional UX) --}}
+        @if(request('search') || request('category'))
+            <div class="mt-6 flex flex-wrap items-center gap-3 text-sm animate-fade-in-up">
+                <span class="text-gray-500 font-medium">Filter aktif:</span>
+                
+                @if(request('search'))
+                    <span class="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold border border-blue-100 shadow-sm">
+                        <svg class="w-3 h-3 mr-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        "{{ request('search') }}"
+                    </span>
                 @endif
+
+                @if(request('category'))
+                    <span class="inline-flex items-center px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-bold border border-purple-100 shadow-sm">
+                        <svg class="w-3 h-3 mr-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                        {{ request('category') }}
+                    </span>
+                @endif
+
+                <div class="h-4 w-px bg-gray-300 mx-1"></div> {{-- Separator --}}
+
+                {{-- Tombol Reset yang Lebih Cantik --}}
+                <a href="{{ route('course.catalog') }}" class="inline-flex items-center px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold hover:bg-red-100 hover:text-red-700 transition-colors border border-red-100 group">
+                    <span>Reset Filter</span>
+                    <div class="bg-red-200 rounded-full p-0.5 ml-2 group-hover:bg-red-300 transition-colors">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        @endif
+    </div>
+
+    <div class="py-12 bg-gray-50 min-h-screen">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            
+            {{-- Flash Message --}}
             @if (session('success'))
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg shadow-sm">
+                <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-r-lg shadow-sm flex items-center animate-fade-in-down">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     {{ session('success') }}
                 </div>
             @endif
-            @if (session('error'))
-                <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg shadow-sm">
-                    {{ session('error') }}
+
+            {{-- LOGIKA UTAMA: Grid Kursus Ditampilkan untuk SEMUA USER (Auth & Guest) --}}
+            @if($courses->isEmpty())
+                <div class="flex flex-col items-center justify-center py-16 text-center">
+                    <div class="bg-white p-6 rounded-full shadow-sm mb-4">
+                        <svg class="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Tidak ada kursus ditemukan</h3>
+                    <p class="text-gray-500 mt-1">Coba kata kunci lain atau reset filter pencarian Anda.</p>
+                    <a href="{{ route('course.catalog') }}" class="mt-4 px-6 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+                        Lihat Semua Kursus
+                    </a>
+                </div>
+            @else
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($courses as $course)
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group">
+                            
+                            {{-- Link ke Detail Kursus (Publik) --}}
+                            <a href="{{ route('public.course.show', $course) }}" class="block relative h-48 overflow-hidden">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($course->title) }}&background=random&size=400&font-size=0.33" 
+                                     alt="{{ $course->title }}" 
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-white/90 backdrop-blur-sm text-blue-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm border border-blue-100">
+                                        {{ $course->category->name }}
+                                    </span>
+                                </div>
+                            </a>
+
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                                        <span class="text-xs text-gray-500 font-medium">Online Course</span>
+                                    </div>
+                                    <div class="flex items-center text-orange-400 text-xs font-bold">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                        4.8 ({{ $course->students_count }})
+                                    </div>
+                                </div>
+
+                                <a href="{{ route('public.course.show', $course) }}" class="group-hover:text-blue-600 transition-colors">
+                                    <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 leading-tight">
+                                        {{ $course->title }}
+                                    </h3>
+                                </a>
+
+                                <p class="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">
+                                    {{ Str::limit(strip_tags($course->description), 100) }}
+                                </p>
+
+                                <div class="flex items-center mt-auto pt-4 border-t border-gray-50">
+                                    <div class="flex items-center flex-1">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
+                                            {{ substr($course->teacher->name, 0, 2) }}
+                                        </div>
+                                        <span class="text-sm text-gray-600 truncate max-w-[100px]" title="{{ $course->teacher->name }}">
+                                            {{ $course->teacher->name }}
+                                        </span>
+                                    </div>
+                                    
+                                    {{-- Logika Tombol Aksi (Berbeda untuk Auth vs Guest) --}}
+                                    @auth
+                                        @if(auth()->user()->role === 'student')
+                                            @if(in_array($course->id, $enrolledCourseIds))
+                                                <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $course->contents->first()]) }}" 
+                                                   class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-xs font-bold rounded-lg hover:bg-green-700 transition shadow-md">
+                                                    Lanjut Belajar
+                                                </a>
+                                            @else
+                                                <form action="{{ route('courses.enroll', $course) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition shadow-md">
+                                                        Ambil Kursus
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            <span class="text-xs font-medium text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Mode Guru</span>
+                                        @endif
+                                    @else
+                                        {{-- JIKA GUEST: Tombol Mengarah ke Login dengan pesan --}}
+                                        <a href="{{ route('login') }}" onclick="return confirm('Silakan Login atau Daftar terlebih dahulu untuk mengambil kursus ini.')" 
+                                           class="inline-flex items-center px-4 py-2 bg-white border border-blue-600 text-blue-600 text-xs font-bold rounded-lg hover:bg-blue-50 transition">
+                                            Ambil Kursus
+                                        </a>
+                                    @endauth
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="mt-10">
+                    {{ $courses->links() }}
                 </div>
             @endif
-
-            <div class="mb-8 p-6 bg-white rounded-lg shadow-sm">
-                <h2 class="text-2xl font-semibold mb-4">Cari Kursus</h2>
-                <form action="{{ route('course.catalog') }}" method="GET">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label for="search" class="block text-sm font-medium text-gray-700">Cari kursus</label>
-                            <input type="text" name="search" id="search" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" value="{{ request('search') }}">
-                        </div>
-                        <div>
-                            <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
-                            <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option value="">Semua Kategori</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->slug }}" @selected(request('category') == $category->slug)>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="flex items-end">
-                            <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500">
-                                Cari
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    @if($courses->isEmpty())
-                        <p class="text-center text-gray-500">Hasil tidak ditemukan.</p>
-                    @else
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                @foreach($courses as $course)
-                                    <div class="group bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full">
-                                        
-                                        <a href="{{ route('public.course.show', $course) }}" class="block flex-grow flex flex-col">
-                                            
-                                            <div class="relative h-48 bg-gray-200 rounded-t-lg overflow-hidden">
-                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($course->title) }}&background=random&size=400" alt="{{ $course->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                <div class="absolute top-0 right-0 bg-black/50 text-white text-xs font-bold px-2 py-1 m-2 rounded">
-                                                    {{ $course->category->name }}
-                                                </div>
-                                            </div>
-
-                                            <div class="p-4 flex flex-col flex-grow">
-                                                <h3 class="text-lg font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-700 transition-colors">
-                                                    {{ $course->title }}
-                                                </h3>
-                                                
-                                                <p class="text-xs text-gray-500 mt-1 truncate">{{ $course->teacher->name }}</p>
-                                                
-                                                <div class="flex items-center mt-2 mb-1">
-                                                    <span class="text-sm font-bold text-orange-800 mr-1">4.8</span>
-                                                    <div class="flex text-orange-400 text-xs">
-                                                        ★★★★★
-                                                    </div>
-                                                    <span class="text-xs text-gray-400 ml-1">({{ $course->students_count * 12 }})</span>
-                                                </div>
-
-                                                <p class="text-sm text-gray-600 mt-2 line-clamp-2 mb-4">
-                                                    {{ Str::limit(strip_tags($course->description), 80) }}
-                                                </p>
-
-                                                <div class="mt-auto flex items-end justify-between">
-                                                    <div class="flex flex-col">
-                                                        <span class="text-lg font-bold text-gray-900">Gratis</span>
-                                                        <span class="text-xs text-gray-500 line-through">Rp 149.000</span>
-                                                    </div>
-                                                    @if($course->students_count > 5)
-                                                        <span class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-sm uppercase">
-                                                            Terlaris
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </a>
-
-                                        <div class="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-                                            <a href="mailto:{{ $course->teacher->email }}" class="text-sm font-semibold text-gray-500 hover:text-gray-700 flex items-center">
-                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                                Hubungi
-                                            </a>
-                                            
-                                            @auth
-                                                @if(auth()->user()->role === 'student')
-                                                    @if(in_array($course->id, $enrolledCourseIds))
-                                                        <span class="text-sm font-bold text-green-600 flex items-center bg-green-50 px-2 py-1 rounded-md border border-green-200">
-                                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                                            Terdaftar
-                                                        </span>
-                                                    @else
-                                                        <form action="{{ route('courses.enroll', $course) }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition-colors shadow-sm">
-                                                                Ikuti Kursus
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                                @endif
-                                            @endauth
-                                        </div>
-
-                                    </div>
-                                @endforeach
-                        </div>
-
-                        <div class="mt-8">
-                            {{ $courses->links() }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-
         </div>
     </div>
+
+    <style>
+        @keyframes fade-in-down {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fade-in-down 0.3s ease-out;
+        }
+    </style>
 </x-app-layout>

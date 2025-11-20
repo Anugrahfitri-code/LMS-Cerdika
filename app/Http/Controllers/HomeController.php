@@ -30,7 +30,11 @@ class HomeController extends Controller
         $categories = Category::all();
 
         if ($request->has('search') && $request->search != '') {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%');
+            });
         }
 
         if ($request->has('category') && $request->category != '') {
@@ -41,7 +45,9 @@ class HomeController extends Controller
 
         $courses = $query->with('category', 'teacher')
                         ->withCount('students') 
-                        ->paginate(9); 
+                        ->latest()
+                        ->paginate(9)
+                        ->withQueryString(); 
 
         $enrolledCourseIds = [];
         if (Auth::check() && Auth::user()->role === 'student') {
@@ -54,6 +60,7 @@ class HomeController extends Controller
             'enrolledCourseIds' => $enrolledCourseIds,                
         ]);
     }
+    
     public function show(Course $course)
     {
         if (!$course->is_active) {

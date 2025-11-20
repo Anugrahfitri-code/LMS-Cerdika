@@ -297,12 +297,7 @@
                                 </h3>
                                 <p class="text-gray-600 mt-1">Dipilih khusus untuk perjalanan belajar Anda</p>
                             </div>
-                            <a href="{{ route('course.catalog') }}" class="group flex items-center gap-2 text-base font-bold text-blue-600 hover:text-blue-800 transition-all hover:gap-3">
-                                Lihat Semua Kursus
-                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </a>
+                           
                         </div>
 
                         <div id="courseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[300px] transition-opacity duration-300">
