@@ -28,6 +28,24 @@
         </div>
     @endif
 
+    @if(request('notice') == 'browse_all')
+        <div class="mb-6 bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-md shadow-sm animate-pulse">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-bold text-purple-800">Eksplorasi Tanpa Batas! 🚀</h3>
+                    <div class="mt-1 text-sm text-purple-700">
+                        Wah, antusiasme Anda luar biasa! Untuk mengakses <strong>perpustakaan lengkap</strong> kami dan mulai belajar, silakan masuk atau buat akun gratis.
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

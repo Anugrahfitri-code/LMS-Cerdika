@@ -153,9 +153,17 @@
                         </div>
 
                         <div class="mt-8 text-center">
-                            <a href="{{ route('course.catalog') }}" class="inline-block px-6 py-3 border border-gray-900 text-gray-900 font-bold rounded-md hover:bg-gray-100 transition">
-                                Tampilkan semua kursus
-                            </a>
+                            @auth
+                                {{-- Jika User sudah Login: Langsung ke Katalog --}}
+                                <a href="{{ route('course.catalog') }}" class="inline-block px-6 py-3 border border-gray-900 text-gray-900 font-bold rounded-md hover:bg-gray-100 transition">
+                                    Tampilkan semua kursus
+                                </a>
+                            @else
+                                {{-- Jika Tamu: Arahkan ke Login dengan pesan 'browse_all' --}}
+                                <a href="{{ route('login', ['notice' => 'browse_all']) }}" class="inline-block px-6 py-3 border border-gray-900 text-gray-900 font-bold rounded-md hover:bg-gray-100 transition">
+                                    Tampilkan semua kursus
+                                </a>
+                            @endauth
                         </div>
 
                     </div>
