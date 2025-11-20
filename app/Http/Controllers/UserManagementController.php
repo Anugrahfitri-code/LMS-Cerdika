@@ -16,7 +16,11 @@ class UserManagementController extends Controller
     public function index()
     {
         $users = User::where('id', '!=', auth()->id())->paginate(10);
-        return view('users.index', compact('users'));
+
+        $total_teachers = User::where('role', 'teacher')->count();
+        $total_students = User::where('role', 'student')->count();
+
+        return view('users.index', compact('users', 'total_teachers', 'total_students'));
     }
 
     /**
