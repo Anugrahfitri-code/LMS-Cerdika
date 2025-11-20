@@ -25,7 +25,23 @@ class StoreCategoryRequest extends FormRequest
         $categoryId = $this->route('category') ? $this->route('category')->id : null;
 
         return [
-            'name' => 'required|string|max:255|unique:categories,name,' . $categoryId,
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:categories,name,' . $categoryId,
+                // Regex ini hanya membolehkan Huruf (a-z, A-Z) dan Spasi
+                'regex:/^[a-zA-Z\s]+$/' 
+            ],
+        ];
+    }
+    //pesan error
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama kategori wajib diisi.',
+            'name.unique' => 'Nama kategori ini sudah ada.',
+            'name.regex' => 'Nama kategori hanya boleh berisi huruf dan spasi (tidak boleh angka).',
         ];
     }
 }
