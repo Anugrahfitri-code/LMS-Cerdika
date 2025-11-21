@@ -122,20 +122,20 @@
                 {{-- Action Bar (Bawah) --}}
                 <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 pb-20">
                     
-                    {{-- Tombol Previous (Opsional, logic manual) --}}
+                    {{-- Tombol Previous --}}
                     @php
                         $prevContent = $courseContents->where('order', '<', $content->order)->sortByDesc('order')->first();
                     @endphp
                     <div>
                         @if($prevContent)
-                            <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $prevContent]) }}" class="inline-flex items-center text-gray-500 hover:text-gray-800 font-medium transition">
+                            <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $prevContent]) }}" class="inline-flex items-center text-gray-500 hover:text-gray-800 font-medium transition px-4 py-2 rounded-lg hover:bg-gray-100">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                                 Sebelumnya
                             </a>
                         @endif
                     </div>
 
-                    {{-- Tombol Mark Complete / Next --}}
+                    {{-- Tombol Mark Complete / Next / Sertifikat --}}
                     @php
                         $isCompleted = in_array($content->id, $completedContentIds);
                     @endphp
@@ -154,9 +154,10 @@
                                     <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                                 </a>
                             @else
-                                {{-- Jika ini materi terakhir dan selesai --}}
-                                <a href="{{ route('dashboard') }}" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 shadow-lg transition">
-                                    Selesaikan Kursus
+                                {{-- PERBAIKAN: Ganti tombol Selesaikan Kursus menjadi Unduh Sertifikat --}}
+                                <a href="{{ route('courses.certificate', $course) }}" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-500/30 transition transform hover:scale-105">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                    Klaim Sertifikat
                                 </a>
                             @endif
                         @else
