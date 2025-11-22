@@ -37,7 +37,18 @@ class ThreadController extends Controller
                           ->latest()
                           ->paginate(10);
 
-        return view('threads.index', compact('course', 'threads'));
+        $courseContents = $course->contents()->orderBy('order', 'asc')->get();
+        $user = Auth::user();
+        
+        $completedContentIds = [];
+        if($user && $user->role === 'student') {
+            $completedContentIds = $user->progress()
+                ->whereIn('content_id', $courseContents->pluck('id'))
+                ->pluck('content_id')
+                ->toArray();
+        }    
+
+        return view('threads.index', compact('course', 'threads', 'courseContents', 'completedContentIds'));
     }
 
     /**
@@ -86,8 +97,18 @@ class ThreadController extends Controller
                         ->with('user') 
                         ->latest()
                         ->paginate(10);
+        $courseContents = $course->contents()->orderBy('order', 'asc')->get();
+        $user = Auth::user();
+        
+        $completedContentIds = [];
+        if($user && $user->role === 'student') {
+            $completedContentIds = $user->progress()
+                ->whereIn('content_id', $courseContents->pluck('id'))
+                ->pluck('content_id')
+                ->toArray();
+        }    
 
-        return view('threads.show', compact('course', 'thread', 'posts'));
+        return view('threads.show', compact('course', 'threads', 'courseContents', 'completedContentIds'));    
     }
 
     /**
