@@ -82,6 +82,8 @@
                 @endforeach
             </div>
 
+            {{-- BAGIAN FOOTER SIDEBAR (FORUM) SUDAH DIHAPUS --}}
+
         </aside>
 
         {{-- AREA KONTEN UTAMA (Kanan) --}}
@@ -124,6 +126,24 @@
                         {!! $content->body !!}
                     </div>
 
+                    {{-- Call to Action Forum di Akhir Materi --}}
+                    <div class="px-8 pb-8">
+                        <div class="bg-blue-50 rounded-xl p-4 flex items-center justify-between border border-blue-100">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-blue-100 p-2 rounded-full text-blue-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-blue-900">Ada pertanyaan tentang materi ini?</p>
+                                    <p class="text-xs text-blue-700">Diskusikan dengan instruktur dan siswa lain.</p>
+                                </div>
+                            </div>
+                            <a href="{{ route('courses.threads.index', $course) }}" class="text-sm font-bold text-blue-600 hover:text-blue-800 hover:underline">
+                                Buka Forum &rarr;
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
 
                 {{-- Action Bar (Bawah) --}}
@@ -161,7 +181,7 @@
                                     <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                                 </a>
                             @else
-                                {{-- PERBAIKAN: Ganti tombol Selesaikan Kursus menjadi Unduh Sertifikat --}}
+                                {{-- Tombol Klaim Sertifikat (Jika selesai semua) --}}
                                 <a href="{{ route('courses.certificate', $course) }}" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-500/30 transition transform hover:scale-105">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                                     Klaim Sertifikat
