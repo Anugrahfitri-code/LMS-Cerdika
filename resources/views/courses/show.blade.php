@@ -45,9 +45,9 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 mb-8">
-                <div class="relative h-64 bg-gradient-to-r from-indigo-600 to-blue-500 overflow-hidden">
+                <div class="relative h-64 bg-gradient-to-r from-blue-600 to-blue-500 overflow-hidden">
                     <div class="absolute top-0 right-0 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 opacity-20 rounded-full blur-2xl -ml-10 -mb-10"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500 opacity-20 rounded-full blur-2xl -ml-10 -mb-10"></div>
                     
                     <div class="absolute top-6 left-6 z-20">
                          <a href="{{ route('courses.index') }}" class="inline-flex items-center px-4 py-2 bg-black/20 backdrop-blur-md border border-white/10 rounded-xl text-white text-sm font-bold hover:bg-black/30 transition shadow-sm">
@@ -78,11 +78,11 @@
                             
                             @can('update', $course)
                                 <div class="flex gap-3">
-                                    <a href="{{ route('courses.contents.index', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-white text-indigo-700 rounded-xl font-bold text-sm hover:bg-indigo-50 shadow-lg transition-all">
+                                    <a href="{{ route('courses.contents.index', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-white text-blue-700 rounded-xl font-bold text-sm hover:bg-blue-50 shadow-lg transition-all">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                                         Kelola Materi
                                     </a>
-                                    <a href="{{ route('courses.edit', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 border border-indigo-400/50 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 shadow-lg transition-all backdrop-blur-md">
+                                    <a href="{{ route('courses.edit', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-blue-600 border border-blue-400/50 text-white rounded-xl font-bold text-sm hover:bg-blue-700 shadow-lg transition-all backdrop-blur-md">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                         Edit Info
                                     </a>
@@ -114,7 +114,7 @@
                     <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                         <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Instruktur</h4>
                         <div class="flex items-center">
-                            <div class="h-14 w-14 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                            <div class="h-14 w-14 rounded-full bg-gradient-to-tr from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
                                 {{ substr($course->teacher->name, 0, 2) }}
                             </div>
                             <div class="ml-4">
