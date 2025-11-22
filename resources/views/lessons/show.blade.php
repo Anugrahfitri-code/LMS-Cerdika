@@ -82,13 +82,6 @@
                 @endforeach
             </div>
 
-            {{-- 3. Footer Sidebar (Forum) --}}
-            <div class="p-4 border-t border-gray-100 bg-white">
-                <a href="{{ route('courses.threads.index', $course) }}" class="flex items-center justify-center w-full py-2.5 px-4 border border-gray-300 rounded-xl text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition shadow-sm">
-                    <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.723-.562M15 7a2 2 0 00-2-2H3a2 2 0 00-2 2v12l4-4h6a2 2 0 002-2V9a2 2 0 00-2-2z"></path></svg>
-                    Forum Diskusi
-                </a>
-            </div>
         </aside>
 
         {{-- AREA KONTEN UTAMA (Kanan) --}}
@@ -100,6 +93,20 @@
                 <div class="flex items-center justify-between mb-6 text-sm text-gray-500">
                     <span>Materi ke-{{ $content->order }} dari {{ $courseContents->count() }}</span>
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-bold">Lesson Mode</span>
+                </div>
+
+                {{-- Tab Navigasi Materi & Diskusi --}}
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                        <a href="#" class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Materi Belajar
+                        </a>
+                        <a href="{{ route('courses.threads.index', $course) }}" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.723-.562M15 7a2 2 0 00-2-2H3a2 2 0 00-2 2v12l4-4h6a2 2 0 002-2V9a2 2 0 00-2-2z"></path></svg>
+                            Forum Diskusi
+                        </a>
+                    </nav>
                 </div>
 
                 {{-- Kartu Konten --}}
