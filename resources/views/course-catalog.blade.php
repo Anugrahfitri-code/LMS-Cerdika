@@ -1,9 +1,9 @@
 <x-app-layout>
-    {{-- Header dengan Background Gradient Modern --}}
-    <div class="relative bg-gradient-to-r from-blue-600 to-indigo-700 pt-24 pb-32 overflow-hidden">
+    {{-- Header dengan Background Gradient Blue Theme --}}
+    <div class="relative bg-gradient-to-r from-blue-600 to-blue-500 pt-24 pb-32 overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl -ml-10 -mb-10"></div>
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500 opacity-20 rounded-full blur-2xl -ml-10 -mb-10"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -34,7 +34,7 @@
                 </div>
 
                 {{-- Dropdown Kategori --}}
-                <div class="w-full md:w-1/4 relative group">
+                <div class="w-full md:w-auto md:min-w-[250px] relative group flex-shrink-0">
                      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
@@ -54,13 +54,13 @@
                 </div>
 
                 {{-- Tombol Cari --}}
-                <button type="submit" class="w-full md:w-auto px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center">
+                <button type="submit" class="w-full md:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center flex-shrink-0">
                     Cari Kursus
                 </button>
             </form>
         </div>
 
-        {{-- Menampilkan Filter yang Sedang Aktif (Optional UX) --}}
+        {{-- Menampilkan Filter yang Sedang Aktif --}}
         @if(request('search') || request('category'))
             <div class="mt-6 flex flex-wrap items-center gap-3 text-sm animate-fade-in-up">
                 <span class="text-gray-500 font-medium">Filter aktif:</span>
@@ -73,15 +73,15 @@
                 @endif
 
                 @if(request('category'))
-                    <span class="inline-flex items-center px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-bold border border-purple-100 shadow-sm">
+                    <span class="inline-flex items-center px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold border border-indigo-100 shadow-sm">
                         <svg class="w-3 h-3 mr-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                         {{ request('category') }}
                     </span>
                 @endif
 
-                <div class="h-4 w-px bg-gray-300 mx-1"></div> {{-- Separator --}}
+                <div class="h-4 w-px bg-gray-300 mx-1"></div>
 
-                {{-- Tombol Reset yang Lebih Cantik --}}
+                {{-- Tombol Reset --}}
                 <a href="{{ route('course.catalog') }}" class="inline-flex items-center px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold hover:bg-red-100 hover:text-red-700 transition-colors border border-red-100 group">
                     <span>Reset Filter</span>
                     <div class="bg-red-200 rounded-full p-0.5 ml-2 group-hover:bg-red-300 transition-colors">
@@ -105,7 +105,7 @@
                 </div>
             @endif
 
-            {{-- LOGIKA UTAMA: Grid Kursus Ditampilkan untuk SEMUA USER (Auth & Guest) --}}
+            {{-- Grid Kursus --}}
             @if($courses->isEmpty())
                 <div class="flex flex-col items-center justify-center py-16 text-center">
                     <div class="bg-white p-6 rounded-full shadow-sm mb-4">
@@ -124,11 +124,11 @@
                     @foreach($courses as $course)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group">
                             
-                            {{-- Link ke Detail Kursus (Publik) --}}
                             <a href="{{ route('public.course.show', $course) }}" class="block relative h-48 overflow-hidden">
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode($course->title) }}&background=random&size=400&font-size=0.33" 
                                      alt="{{ $course->title }}" 
                                      class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 
                                 <div class="absolute top-3 right-3">
                                     <span class="bg-white/90 backdrop-blur-sm text-blue-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm border border-blue-100">
@@ -169,7 +169,6 @@
                                         </span>
                                     </div>
                                     
-                                    {{-- Logika Tombol Aksi (Berbeda untuk Auth vs Guest) --}}
                                     @auth
                                         @if(auth()->user()->role === 'student')
                                             @if(in_array($course->id, $enrolledCourseIds))
@@ -189,7 +188,6 @@
                                             <span class="text-xs font-medium text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Mode Guru</span>
                                         @endif
                                     @else
-                                        {{-- JIKA GUEST: Tombol Mengarah ke Login dengan pesan --}}
                                         <a href="{{ route('login') }}" onclick="return confirm('Silakan Login atau Daftar terlebih dahulu untuk mengambil kursus ini.')" 
                                            class="inline-flex items-center px-4 py-2 bg-white border border-blue-600 text-blue-600 text-xs font-bold rounded-lg hover:bg-blue-50 transition">
                                             Ambil Kursus
