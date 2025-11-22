@@ -54,7 +54,10 @@ class ThreadController extends Controller
                           ->latest()
                           ->paginate(10);
 
-        // Panggil fungsi helper untuk data sidebar
+        if (Auth::user()->role === 'teacher' || Auth::user()->role === 'admin') {
+            return view('threads.teacher_index', compact('course', 'threads'));
+        }        
+                  
         [$courseContents, $completedContentIds] = $this->getSidebarData($course);
 
         return view('threads.index', compact('course', 'threads', 'courseContents', 'completedContentIds'));
