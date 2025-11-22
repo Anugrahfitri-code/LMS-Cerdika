@@ -4,62 +4,68 @@
     <div class="flex h-[calc(100vh-65px)] bg-gray-50">
         
         {{-- ========================================== --}}
-        {{-- SIDEBAR MATERI (KIRI) --}}
+        {{-- SIDEBAR MATERI (HANYA UNTUK STUDENT)     --}}
         {{-- ========================================== --}}
-        <aside class="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col h-full shrink-0 z-20 hidden md:flex">
-            <div class="p-5 border-b border-gray-100 bg-gray-50/50">
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center text-xs font-bold text-gray-500 hover:text-blue-600 transition mb-3 group">
-                    <svg class="w-3 h-3 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Kembali ke Dashboard
-                </a>
-                <h2 class="font-bold text-gray-800 leading-tight line-clamp-2" title="{{ $course->title }}">
-                    {{ $course->title }}
-                </h2>
-                @php
-                    $total = $courseContents->count();
-                    $done = count($completedContentIds);
-                    $percent = $total > 0 ? ($done / $total) * 100 : 0;
-                @endphp
-                <div class="mt-3 flex items-center justify-between text-xs text-gray-500 mb-1">
-                    <span>Progres Belajar</span>
-                    <span class="font-bold text-blue-600">{{ round($percent) }}%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-1.5">
-                    <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style="width: {{ $percent }}%"></div>
-                </div>
-            </div>
-
-            <div class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-1">
-                @foreach($courseContents as $item)
-                    @php $isCompleted = in_array($item->id, $completedContentIds); @endphp
-                    <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $item]) }}" 
-                       class="flex items-start p-3 rounded-xl transition-all duration-200 group hover:bg-gray-50 border border-transparent">
-                        <div class="flex-shrink-0 mt-0.5 mr-3">
-                            @if($isCompleted)
-                                <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center border border-green-200">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                </div>
-                            @else
-                                <div class="w-6 h-6 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold border border-gray-200">
-                                    {{ $loop->iteration }}
-                                </div>
-                            @endif
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-gray-600 group-hover:text-blue-600 transition-colors">{{ $item->title }}</p>
-                        </div>
+        @if(auth()->user()->role === 'student')
+            <aside class="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col h-full shrink-0 z-20 hidden md:flex">
+                <div class="p-5 border-b border-gray-100 bg-gray-50/50">
+                    <a href="{{ route('dashboard') }}" class="inline-flex items-center text-xs font-bold text-gray-500 hover:text-blue-600 transition mb-3 group">
+                        <svg class="w-3 h-3 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Kembali ke Dashboard
                     </a>
-                @endforeach
-            </div>
-        </aside>
+                    <h2 class="font-bold text-gray-800 leading-tight line-clamp-2" title="{{ $course->title }}">
+                        {{ $course->title }}
+                    </h2>
+                    @if(isset($completedContentIds))
+                        @php
+                            $total = $courseContents->count();
+                            $done = count($completedContentIds);
+                            $percent = $total > 0 ? ($done / $total) * 100 : 0;
+                        @endphp
+                        <div class="mt-3 flex items-center justify-between text-xs text-gray-500 mb-1">
+                            <span>Progres Belajar</span>
+                            <span class="font-bold text-blue-600">{{ round($percent) }}%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5">
+                            <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style="width: {{ $percent }}%"></div>
+                        </div>
+                    @endif
+                </div>
+
+                <div class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-1">
+                    @foreach($courseContents as $item)
+                        @php 
+                            $isCompleted = isset($completedContentIds) && in_array($item->id, $completedContentIds);
+                        @endphp
+                        <a href="{{ route('courses.lesson.show', ['course' => $course, 'content' => $item]) }}" 
+                           class="flex items-start p-3 rounded-xl transition-all duration-200 group hover:bg-gray-50 border border-transparent">
+                            <div class="flex-shrink-0 mt-0.5 mr-3">
+                                @if($isCompleted)
+                                    <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center border border-green-200">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                @else
+                                    <div class="w-6 h-6 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold border border-gray-200">
+                                        {{ $loop->iteration }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-600 group-hover:text-blue-600 transition-colors">{{ $item->title }}</p>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </aside>
+        @endif
 
         {{-- ========================================== --}}
-        {{-- AREA DISKUSI UTAMA (KANAN) --}}
+        {{-- AREA DISKUSI UTAMA (KANAN)               --}}
         {{-- ========================================== --}}
         <main class="flex-1 overflow-y-auto bg-white relative scroll-smooth flex flex-col">
             
             {{-- 1. Header Sticky --}}
-            <div class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+            <div class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-4">
                     <a href="{{ route('courses.threads.index', $course) }}" class="p-2 rounded-full hover:bg-gray-100 text-gray-500 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -74,12 +80,13 @@
                     </div>
                 </div>
                 
-                @if(auth()->id() === $thread->user_id || auth()->user()->role === 'admin')
+                @if(auth()->id() === $thread->user_id || auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
                     <form action="{{ route('courses.threads.destroy', ['course' => $course, 'thread' => $thread]) }}" method="POST" onsubmit="return confirm('Hapus diskusi ini selamanya?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                            Hapus Topik
+                        <button type="submit" class="text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            Hapus
                         </button>
                     </form>
                 @endif
@@ -97,6 +104,12 @@
                     </div>
                     <div class="flex-1">
                         <div class="bg-blue-50/50 border border-blue-100 rounded-2xl rounded-tl-none p-6 shadow-sm relative group">
+                             <div class="flex justify-between items-start mb-2">
+                                <span class="text-sm font-bold text-blue-800">{{ $thread->user->name }}</span>
+                                @if($thread->user->role == 'teacher' || $thread->user->role == 'admin')
+                                    <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-[10px] font-bold uppercase tracking-wide">Instruktur</span>
+                                @endif
+                            </div>
                             <div class="prose prose-blue max-w-none text-gray-800">
                                 {!! nl2br(e($thread->body)) !!}
                             </div>
@@ -104,17 +117,19 @@
                     </div>
                 </div>
 
-                {{-- Divider Balasan --}}
-                <div class="relative max-w-4xl mx-auto py-4">
-                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div class="w-full border-t border-gray-200"></div>
+                {{-- Divider Balasan (Hanya muncul jika ada balasan dari user LAIN) --}}
+                @if($posts->count() > 0)
+                    <div class="relative max-w-4xl mx-auto py-4">
+                        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div class="relative flex justify-center">
+                            <span class="px-4 bg-white text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                Balasan Terbaru
+                            </span>
+                        </div>
                     </div>
-                    <div class="relative flex justify-center">
-                        <span class="px-4 bg-white text-sm font-medium text-gray-500 uppercase tracking-wider">
-                            {{ $posts->total() }} Balasan
-                        </span>
-                    </div>
-                </div>
+                @endif
 
                 {{-- List Balasan --}}
                 <div class="space-y-6 max-w-4xl mx-auto pb-24">
@@ -124,7 +139,7 @@
                             {{-- Avatar --}}
                             <div class="flex-shrink-0">
                                 <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm
-                                    {{ $post->user->role == 'teacher' || $post->user->role == 'admin' ? 'bg-gradient-to-br from-indigo-500 to-purple-600' : 'bg-gray-400' }}">
+                                    {{ $post->user->role == 'teacher' || $post->user->role == 'admin' ? 'bg-gradient-to-br from-indigo-500 to-purple-600' : ($post->user_id === auth()->id() ? 'bg-blue-600' : 'bg-gray-400') }}">
                                     {{ substr($post->user->name, 0, 2) }}
                                 </div>
                             </div>
@@ -135,12 +150,16 @@
                                     {{ $post->user_id === auth()->id() ? 'bg-blue-600 text-white rounded-tr-none border-transparent' : 'bg-white text-gray-800 rounded-tl-none border-gray-200' }}">
                                     
                                     <div class="flex justify-between items-start mb-1">
-                                        <span class="text-xs font-bold {{ $post->user_id === auth()->id() ? 'text-blue-100' : 'text-gray-900' }}">
-                                            {{ $post->user->name }}
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs font-bold {{ $post->user_id === auth()->id() ? 'text-blue-100' : 'text-gray-900' }}">
+                                                {{ $post->user->name }}
+                                            </span>
                                             @if($post->user->role == 'teacher' || $post->user->role == 'admin')
-                                                <span class="ml-1 px-1.5 py-0.5 rounded bg-white/20 text-[10px] uppercase tracking-wide border border-white/20">Instruktur</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-white/20 text-[10px] uppercase tracking-wide border border-white/20 {{ $post->user_id === auth()->id() ? 'text-white' : 'text-indigo-600 bg-indigo-50 border-indigo-100' }}">
+                                                    Instruktur
+                                                </span>
                                             @endif
-                                        </span>
+                                        </div>
                                         <span class="text-[10px] {{ $post->user_id === auth()->id() ? 'text-blue-200' : 'text-gray-400' }}">
                                             {{ $post->created_at->diffForHumans() }}
                                         </span>
@@ -150,10 +169,10 @@
 
                                     {{-- Delete Button for Post --}}
                                     @can('delete', $post)
-                                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <div class="absolute top-2 -right-8 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Hapus balasan ini?');">
                                                 @csrf @method('DELETE')
-                                                <button type="submit" class="p-1 rounded hover:bg-white/20 text-current transition" title="Hapus">
+                                                <button type="submit" class="p-1.5 rounded-full bg-gray-100 hover:bg-red-50 text-gray-400 hover:text-red-500 transition shadow-sm border border-gray-200" title="Hapus">
                                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                                 </button>
                                             </form>
@@ -163,9 +182,7 @@
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-8 text-gray-400 text-sm italic">
-                            Belum ada balasan. Jadilah yang pertama membantu!
-                        </div>
+                        {{-- Kosongkan saja jika belum ada balasan, biarkan bersih --}}
                     @endforelse
 
                     {{-- Pagination --}}
@@ -176,14 +193,16 @@
             </div>
 
             {{-- 3. Form Balasan (Sticky Bottom) --}}
-            <div class="sticky bottom-0 bg-white border-t border-gray-200 p-4 md:p-6 z-20">
+            <div class="sticky bottom-0 bg-white border-t border-gray-200 p-4 md:p-6 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                 <div class="max-w-4xl mx-auto">
                     <form action="{{ route('threads.posts.store', $thread) }}" method="POST" class="relative">
                         @csrf
-                        <div class="relative">
-                            <textarea name="body" rows="1" class="block w-full py-4 pl-5 pr-16 text-gray-900 bg-gray-50 rounded-2xl border-0 focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all resize-none shadow-sm" placeholder="Tulis balasanmu di sini..." required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+                        <div class="relative flex items-end gap-2">
+                            <div class="flex-1 relative">
+                                <textarea name="body" rows="1" class="block w-full py-3 pl-4 pr-12 text-gray-900 bg-gray-50 rounded-2xl border-0 focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all resize-none shadow-sm" placeholder="Tulis balasanmu..." required oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, 150) + 'px'"></textarea>
+                            </div>
                             
-                            <button type="submit" class="absolute right-2 bottom-2.5 p-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-md">
+                            <button type="submit" class="flex-shrink-0 p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
                                 <svg class="w-5 h-5 rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
                             </button>
                         </div>
