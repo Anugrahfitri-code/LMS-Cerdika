@@ -167,6 +167,8 @@
                     $activeCourses = $taughtCourses->where('is_active', 1)->count();
                 @endphp
 
+                
+
                 <div class="relative bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 rounded-3xl p-8 md:p-10 shadow-2xl overflow-hidden text-white mb-10">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none animate-pulse"></div>
                     <div class="absolute bottom-0 left-0 w-40 h-40 bg-blue-400 opacity-20 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
@@ -268,16 +270,27 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid grid-cols-2 gap-3 mt-auto">
-                                            <a href="{{ route('courses.contents.index', $course) }}" class="flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-xl text-xs font-bold hover:from-blue-100 hover:to-blue-200 transition-all border border-blue-200 group/btn shadow-sm hover:shadow-md">
+                                        <div class="mt-auto space-y-3">
+                                        {{-- Baris 1: Materi & Siswa --}}
+                                        <div class="grid grid-cols-2 gap-3">
+                                            {{-- Tombol Edit Materi (Biru Muda) --}}
+                                            <a href="{{ route('courses.contents.index', $course) }}" class="flex items-center justify-center px-4 py-2.5 bg-blue-50 text-blue-700 rounded-xl text-xs font-bold hover:bg-blue-100 transition border border-blue-100 group/btn">
                                                 <svg class="w-4 h-4 mr-1.5 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                                 Edit Materi
                                             </a>
-                                            <a href="{{ route('courses.student.progress', $course) }}" class="flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-white to-gray-50 text-gray-600 border border-gray-200 rounded-xl text-xs font-bold hover:from-gray-50 hover:to-gray-100 hover:text-gray-900 transition-all hover:border-gray-300 shadow-sm hover:shadow-md">
+                                            {{-- Tombol Data Siswa (Putih dengan Hover Biru) --}}
+                                            <a href="{{ route('courses.student.progress', $course) }}" class="flex items-center justify-center px-4 py-2.5 bg-white text-gray-600 border border-gray-200 rounded-xl text-xs font-bold hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition">
                                                 <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                                                Progress
+                                                Data Siswa
                                             </a>
                                         </div>
+
+                                        {{-- Baris 2: Forum Diskusi (Gradasi Biru Cantik) --}}
+                                        <a href="{{ route('courses.threads.index', $course) }}" class="flex items-center justify-center w-full px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl text-xs font-bold hover:from-blue-700 hover:to-blue-600 transition shadow-md shadow-blue-500/20 transform hover:-translate-y-0.5">
+                                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.723-.562M15 7a2 2 0 00-2-2H3a2 2 0 00-2 2v12l4-4h6a2 2 0 002-2V9a2 2 0 00-2-2z"></path></svg>
+                                            Forum Diskusi
+                                        </a>
+                                    </div>
                                     </div>
                                 </div>
                             @endforeach
