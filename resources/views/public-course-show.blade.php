@@ -334,12 +334,12 @@
             </div>
         </main>
 
-        <footer class="bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 py-10 mt-12">
+        <footer class="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 py-10 mt-12">
             <div class="max-w-7xl mx-auto px-4 text-center">
                 <p class="text-white font-semibold text-base mb-2">
                     © {{ date('Y') }} LMS-Cerdika
                 </p>
-                <p class="text-blue-100 text-sm">
+                <p class="text-blue-200 text-sm">
                     Belajar Tanpa Batas • Raih Masa Depanmu
                 </p>
             </div>
