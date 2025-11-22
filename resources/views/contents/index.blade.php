@@ -44,29 +44,32 @@
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             
-            <div class="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl shadow-xl p-8 mb-8 text-white relative overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-3xl shadow-xl p-8 mb-8 text-white relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-40 h-40 bg-indigo-500 opacity-20 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
                 
                 <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="px-3 py-1 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-xs font-bold uppercase tracking-wider">
+                    <div class="flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3 py-1 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-xs font-bold uppercase tracking-wider shadow-sm">
                                 {{ $course->category->name }}
                             </span>
                             @if($course->is_active)
-                                <span class="px-2 py-1 rounded-lg bg-green-500/20 border border-green-400/30 text-green-100 text-xs font-bold flex items-center">
-                                    <span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5"></span> Aktif
+                                <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/30 text-emerald-50 text-xs font-bold shadow-sm">
+                                    <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> Aktif
                                 </span>
                             @endif
                         </div>
-                        <h1 class="text-3xl font-extrabold leading-tight">{{ $course->title }}</h1>
-                        <p class="text-blue-100 mt-2 text-sm max-w-2xl line-clamp-2">{{ $course->description }}</p>
+                        
+                        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-2">{{ $course->title }}</h1>
+                        <p class="text-blue-50 text-sm md:text-base max-w-2xl opacity-90 line-clamp-2 font-medium">
+                            {{ $course->description }}
+                        </p>
                     </div>
                     
-                    <div class="flex-shrink-0">
-                         <a href="{{ route('courses.index') }}" class="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-bold transition backdrop-blur-sm">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <div class="flex-shrink-0 mt-4 md:mt-0">
+                         <a href="{{ route('courses.index') }}" class="group inline-flex items-center px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-bold transition-all backdrop-blur-md shadow-sm">
+                            <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Kembali ke Kursus
                         </a>
                     </div>
@@ -77,13 +80,13 @@
                 
                 <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gray-50/30">
                     <h3 class="text-lg font-bold text-gray-800 flex items-center">
-                        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 mr-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-600 mr-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </span>
                         Daftar Materi ({{ $contents->count() }})
                     </h3>
                     
-                    <a href="{{ route('courses.contents.create', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/30 transition-all transform hover:-translate-y-0.5">
+                    <a href="{{ route('courses.contents.create', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm font-bold rounded-xl hover:from-blue-700 hover:to-blue-600 shadow-lg shadow-blue-500/30 transition-all transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         Tambah Materi Baru
                     </a>
@@ -131,13 +134,13 @@
                         </div>
                     @empty
                         <div class="text-center py-12">
-                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 mb-4">
+                                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                             </div>
                             <h3 class="text-lg font-medium text-gray-900">Belum ada materi</h3>
                             <p class="mt-1 text-sm text-gray-500">Mulai dengan menambahkan materi pembelajaran pertama Anda.</p>
                             <div class="mt-6">
-                                <a href="{{ route('courses.contents.create', $course) }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                <a href="{{ route('courses.contents.create', $course) }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                     <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                                     </svg>
