@@ -19,7 +19,7 @@ class DashboardController extends Controller
 
         if ($user->role === 'student') {
             $enrolledCourses = $user->enrolledCourses()
-                ->with('teacher')
+                ->with('teacher', 'category')
                 ->withCount('contents')
                 ->get();
 
@@ -41,7 +41,8 @@ class DashboardController extends Controller
 
         } elseif ($user->role === 'teacher') {
             $data['taughtCourses'] = $user->courses()
-                ->withCount('students')
+                ->with('category')
+                ->withCount(['students', 'contents'])
                 ->latest()
                 ->get();
 
