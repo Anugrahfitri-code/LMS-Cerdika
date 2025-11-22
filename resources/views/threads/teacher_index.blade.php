@@ -19,7 +19,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 rounded-2xl shadow-lg text-white flex items-center">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 rounded-2xl shadow-lg text-white flex items-center relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-white opacity-10 rounded-full -mr-6 -mt-6"></div>
                     <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl mr-4">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.723-.562M15 7a2 2 0 00-2-2H3a2 2 0 00-2 2v12l4-4h6a2 2 0 002-2V9a2 2 0 00-2-2z"></path></svg>
                     </div>
@@ -31,17 +32,21 @@
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                    <h3 class="font-bold text-lg text-gray-800">Daftar Pertanyaan Siswa</h3>
+                <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center bg-gray-50/50 gap-4">
+                    <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                        <span class="w-1 h-6 bg-blue-600 rounded-full"></span>
+                        Daftar Pertanyaan Siswa
+                    </h3>
                     
-                    <a href="{{ route('courses.threads.create', $course) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-lg font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition shadow-lg shadow-blue-500/30">
-                        + Buat Pengumuman
+                    <a href="{{ route('courses.threads.create', $course) }}" class="inline-flex items-center px-5 py-2.5 bg-blue-600 border border-transparent rounded-xl font-bold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Buat Topik Baru
                     </a>
                 </div>
 
-                <div class="p-6">
+                <div class="p-6 bg-gray-50/30">
                     @if (session('success'))
-                        <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-r-lg flex items-center">
+                        <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-r-xl flex items-center shadow-sm">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             {{ session('success') }}
                         </div>
@@ -49,68 +54,78 @@
 
                     <div class="space-y-4">
                         @forelse ($threads as $thread)
-                            <div class="group flex flex-col sm:flex-row sm:items-start justify-between p-5 rounded-xl border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200 bg-white">
+                            <div class="group flex flex-col sm:flex-row sm:items-start justify-between p-6 rounded-2xl border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-300 bg-white relative overflow-hidden">
                                 
-                                <div class="flex items-start gap-4 flex-1">
+                                {{-- Garis Indikator di Kiri (Biru jika ada balasan, Abu jika belum) --}}
+                                <div class="absolute left-0 top-0 bottom-0 w-1.5 {{ $thread->posts_count > 0 ? 'bg-blue-500' : 'bg-gray-300' }}"></div>
+
+                                <div class="flex items-start gap-5 flex-1 pl-4">
                                     <div class="flex-shrink-0">
-                                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-600 font-bold text-lg border border-gray-300 group-hover:border-blue-200 transition-colors">
+                                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-600 font-bold text-lg border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
                                             {{ substr($thread->user->name, 0, 2) }}
                                         </div>
                                     </div>
-                                    <div>
-                                        <a href="{{ route('courses.threads.show', ['course' => $course, 'thread' => $thread]) }}" class="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors line-clamp-1">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="font-bold text-sm text-gray-900">{{ $thread->user->name }}</span>
+                                            <span class="text-xs text-gray-400">•</span>
+                                            <span class="text-xs text-gray-500">{{ $thread->created_at->diffForHumans() }}</span>
+                                            @if($thread->user->role == 'teacher' || $thread->user->role == 'admin')
+                                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-md text-[10px] font-bold uppercase tracking-wider border border-blue-200">Instruktur</span>
+                                            @endif
+                                        </div>
+
+                                        <a href="{{ route('courses.threads.show', ['course' => $course, 'thread' => $thread]) }}" class="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors block mb-2 line-clamp-1">
                                             {{ $thread->title }}
                                         </a>
-                                        <p class="text-sm text-gray-600 mt-1 line-clamp-2 max-w-2xl">
-                                            {{ Str::limit(strip_tags($thread->body), 200) }}
+                                        <p class="text-sm text-gray-600 line-clamp-2 leading-relaxed">
+                                            {{ Str::limit(strip_tags($thread->body), 180) }}
                                         </p>
-                                        <div class="flex items-center gap-3 mt-3 text-xs text-gray-500">
-                                            <span class="flex items-center gap-1 font-medium text-gray-700">
-                                                <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                                {{ $thread->user->name }}
-                                            </span>
-                                            <span>•</span>
-                                            <span>{{ $thread->created_at->diffForHumans() }}</span>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-4 sm:mt-0 flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-auto pl-0 sm:pl-4 border-t sm:border-t-0 border-gray-100 pt-3 sm:pt-0">
+                                <div class="mt-4 sm:mt-0 flex flex-row sm:flex-col items-center sm:items-end gap-4 sm:gap-2 w-full sm:w-auto pl-4 sm:pl-0 border-t sm:border-t-0 border-gray-100 pt-4 sm:pt-0">
                                     
-                                    <div class="flex items-center gap-1.5 {{ $thread->posts_count > 0 ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-600 border-gray-200' }} px-3 py-1 rounded-full border transition-colors">
+                                    {{-- Badge Jumlah Balasan --}}
+                                    <div class="flex items-center gap-2 {{ $thread->posts_count > 0 ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-gray-50 text-gray-500 border-gray-200' }} px-3 py-1.5 rounded-lg border transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                                         <span class="font-bold text-sm">{{ $thread->posts_count }}</span>
-                                        <span class="text-xs">Balasan</span>
+                                        <span class="text-xs font-medium">Balasan</span>
                                     </div>
 
-                                    <div class="flex gap-2 ml-auto sm:ml-0 mt-1">
-                                        <a href="{{ route('courses.threads.show', ['course' => $course, 'thread' => $thread]) }}" class="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline bg-blue-50 px-3 py-1.5 rounded-lg transition-colors">
-                                            Lihat & Balas &rarr;
+                                    <div class="flex items-center gap-2 ml-auto sm:ml-0">
+                                        <a href="{{ route('courses.threads.show', ['course' => $course, 'thread' => $thread]) }}" class="text-sm font-bold text-blue-600 hover:text-blue-800 hover:underline transition-all">
+                                            Lihat Detail
                                         </a>
                                         
-                                        <form action="{{ route('courses.threads.destroy', ['course' => $course, 'thread' => $thread]) }}" method="POST" onsubmit="return confirm('Hapus diskusi ini?');" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-gray-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition" title="Hapus">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                            </button>
-                                        </form>
+                                        @if(auth()->id() === $thread->user_id || auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
+                                            <form action="{{ route('courses.threads.destroy', ['course' => $course, 'thread' => $thread]) }}" method="POST" onsubmit="return confirm('Hapus diskusi ini?');" class="inline-flex">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-gray-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition" title="Hapus">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
 
                             </div>
                         @empty
-                            <div class="text-center py-12 text-gray-500">
-                                <div class="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-blue-300">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                            <div class="text-center py-16 bg-white rounded-2xl border-2 border-dashed border-gray-200">
+                                <div class="mb-4 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 text-blue-400">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                                 </div>
-                                <p class="text-lg font-medium">Belum ada diskusi dari siswa.</p>
-                                <p class="text-sm">Mulai percakapan dengan membuat pengumuman atau topik baru.</p>
+                                <h3 class="text-lg font-bold text-gray-900">Belum ada diskusi</h3>
+                                <p class="text-gray-500 mt-1 mb-6">Belum ada siswa yang bertanya. Anda bisa memulai dengan membuat topik pengumuman.</p>
+                                <a href="{{ route('courses.threads.create', $course) }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition">
+                                    Mulai Diskusi Baru
+                                </a>
                             </div>
                         @endforelse
                     </div>
 
-                    <div class="mt-6">
+                    <div class="mt-8">
                         {{ $threads->links() }}
                     </div>
                 </div>
