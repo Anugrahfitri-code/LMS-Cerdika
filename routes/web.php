@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
          
     // Rute untuk menampilkan daftar thread & membuat thread baru
     Route::resource('courses.threads', ThreadController::class)->only([
-        'index', 'create', 'store', 'show'
+        'index', 'create', 'store', 'show', 'destroy'
     ]);
 
     // Rute untuk membalas (membuat post) di dalam thread

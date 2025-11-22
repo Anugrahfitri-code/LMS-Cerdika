@@ -24,6 +24,23 @@ class ThreadController extends Controller
         }
         abort(403, 'Anda tidak memiliki akses ke forum ini.');
     }
+
+    private function getSidebarData(Course $course)
+    {
+        $courseContents = $course->contents()->orderBy('order', 'asc')->get();
+        $user = Auth::user();
+        
+        $completedContentIds = [];
+        if($user && $user->role === 'student') {
+            $completedContentIds = $user->progress()
+                ->whereIn('content_id', $courseContents->pluck('id'))
+                ->pluck('content_id')
+                ->toArray();
+        }
+
+        return [$courseContents, $completedContentIds];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -37,16 +54,8 @@ class ThreadController extends Controller
                           ->latest()
                           ->paginate(10);
 
-        $courseContents = $course->contents()->orderBy('order', 'asc')->get();
-        $user = Auth::user();
-        
-        $completedContentIds = [];
-        if($user && $user->role === 'student') {
-            $completedContentIds = $user->progress()
-                ->whereIn('content_id', $courseContents->pluck('id'))
-                ->pluck('content_id')
-                ->toArray();
-        }    
+        // Panggil fungsi helper untuk data sidebar
+        [$courseContents, $completedContentIds] = $this->getSidebarData($course);
 
         return view('threads.index', compact('course', 'threads', 'courseContents', 'completedContentIds'));
     }
@@ -57,7 +66,10 @@ class ThreadController extends Controller
     public function create(Course $course)
     {
         $this->checkAccess($course);
-        return view('threads.create', compact('course'));
+
+        [$courseContents, $completedContentIds] = $this->getSidebarData($course);
+
+        return view('threads.create', compact('course', 'courseContents', 'completedContentIds'));
     }
 
     /**
@@ -97,18 +109,10 @@ class ThreadController extends Controller
                         ->with('user') 
                         ->latest()
                         ->paginate(10);
-        $courseContents = $course->contents()->orderBy('order', 'asc')->get();
-        $user = Auth::user();
         
-        $completedContentIds = [];
-        if($user && $user->role === 'student') {
-            $completedContentIds = $user->progress()
-                ->whereIn('content_id', $courseContents->pluck('id'))
-                ->pluck('content_id')
-                ->toArray();
-        }    
+        [$courseContents, $completedContentIds] = $this->getSidebarData($course);
 
-        return view('threads.show', compact('course', 'threads', 'courseContents', 'completedContentIds'));    
+        return view('threads.show', compact('course', 'thread', 'posts', 'courseContents', 'completedContentIds'));    
     }
 
     /**
@@ -130,8 +134,17 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Course $course, Thread $thread)
     {
-        //
+        $user = Auth::user();
+
+        if ($user->id !== $thread->user_id && $user->role !== 'admin' && $user->role !== 'teacher') {
+            abort(403, 'Anda tidak memiliki izin untuk menghapus diskusi ini.');
+        }
+
+        $thread->delete();
+
+        return redirect()->route('courses.threads.index', $course)
+                         ->with('success', 'Topik diskusi berhasil dihapus.');
     }
 }
