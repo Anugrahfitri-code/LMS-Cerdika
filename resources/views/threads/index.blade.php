@@ -129,8 +129,14 @@
                             <div class="relative z-10 flex items-start gap-4 flex-grow">
                                 {{-- Avatar Penulis --}}
                                 <div class="flex-shrink-0">
-                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                                        {{ substr($thread->user->name, 0, 2) }}
+                                    <div class="flex-shrink-0">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-sm overflow-hidden border border-gray-200">
+                                            @if($thread->user->avatar)
+                                                <img src="{{ asset('storage/' . $thread->user->avatar) }}" alt="{{ $thread->user->name }}" class="w-full h-full object-cover">
+                                            @else
+                                                {{ substr($thread->user->name, 0, 2) }}
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 

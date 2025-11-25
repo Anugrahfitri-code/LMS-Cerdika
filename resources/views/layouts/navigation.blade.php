@@ -116,8 +116,14 @@
                                 <div class="text-xs text-gray-500 capitalize">{{ Auth::user()->role }}</div>
                             </div>
                             
-                            <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md ring-2 ring-white group-hover:ring-blue-100 transition">
-                                {{ substr(Auth::user()->name, 0, 2) }}
+                            <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md ring-2 ring-white group-hover:ring-blue-100 transition overflow-hidden">
+                                @if(Auth::user()->avatar)
+                                    {{-- Tampilkan Foto User --}}
+                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+                                @else
+                                    {{-- Tampilkan Inisial (Fallback) --}}
+                                    {{ substr(Auth::user()->name, 0, 2) }}
+                                @endif
                             </div>
                             
                             <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

@@ -129,9 +129,18 @@
                                         <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mr-3 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
                                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                         </div>
-                                        <div>
-                                            <p class="text-xs text-gray-500 font-medium">Pengajar</p>
-                                            <p class="text-sm font-bold text-gray-800">{{ $course->teacher->name }}</p>
+                                        <div class="flex items-center gap-4 mb-6">
+                                            <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md bg-blue-100 text-blue-600 overflow-hidden border border-blue-200">
+                                                @if($course->teacher->avatar)
+                                                    <img src="{{ asset('storage/' . $course->teacher->avatar) }}" alt="{{ $course->teacher->name }}" class="w-full h-full object-cover">
+                                                @else
+                                                    {{ substr($course->teacher->name, 0, 2) }}
+                                                @endif
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-gray-900 text-lg">{{ $course->teacher->name }}</h4>
+                                                <p class="text-sm text-gray-500">Pengajar</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="flex items-center group">

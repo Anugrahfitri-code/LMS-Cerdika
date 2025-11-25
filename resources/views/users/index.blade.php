@@ -111,9 +111,16 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                <div class="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm
-                                                    {{ $user->role == 'admin' ? 'bg-red-500' : ($user->role == 'teacher' ? 'bg-purple-500' : 'bg-blue-500') }}">
-                                                    {{ substr($user->name, 0, 2) }}
+                                                <div class="flex-shrink-0 h-10 w-10">
+                                                    <div class="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm overflow-hidden
+                                                        {{ $user->role == 'admin' ? 'bg-red-500' : ($user->role == 'teacher' ? 'bg-purple-500' : 'bg-blue-500') }}">
+                                                        
+                                                        @if($user->avatar)
+                                                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                                        @else
+                                                            {{ substr($user->name, 0, 2) }}
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ml-4">

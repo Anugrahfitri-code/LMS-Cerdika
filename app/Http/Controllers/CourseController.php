@@ -108,19 +108,18 @@ class CourseController extends Controller
     {
         $this->authorize('update', $course);
 
-        $students = $course->students()->get(); 
-        $totalContents = $course->contents()->count(); 
-        $contentIds = $course->contents->pluck('id');
+        $contentIds = $course->contents()->pluck('id');
+        $totalContents = $contentIds->count();
+
+        $students = $course->students()
+            ->withCount(['progress as completed_count' => function ($query) use ($contentIds) {
+                $query->whereIn('content_id', $contentIds);
+            }])
+            ->get();
 
         foreach ($students as $student) {
-            $completedCount = $student->progress()
-                                    ->whereIn('content_id', $contentIds)
-                                    ->count();
-
-            $student->completed_count = $completedCount; 
-
             if ($totalContents > 0) {
-                $student->progress_percentage = ($completedCount / $totalContents) * 100;
+                $student->progress_percentage = round(($student->completed_count / $totalContents) * 100);
             } else {
                 $student->progress_percentage = 0;
             }

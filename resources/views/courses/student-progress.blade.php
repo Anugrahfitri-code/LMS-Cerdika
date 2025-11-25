@@ -84,8 +84,14 @@
                                 <tr class="hover:bg-blue-50/30 transition duration-200 group">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-sm mr-3">
-                                                {{ substr($student->name, 0, 2) }}
+                                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-sm mr-3 overflow-hidden border border-gray-200">
+                                                @if($student->avatar)
+                                                    {{-- Jika punya foto, tampilkan foto --}}
+                                                    <img src="{{ asset('storage/' . $student->avatar) }}" alt="{{ $student->name }}" class="w-full h-full object-cover">
+                                                @else
+                                                    {{-- Jika tidak, tampilkan inisial --}}
+                                                    {{ substr($student->name, 0, 2) }}
+                                                @endif
                                             </div>
                                             <div>
                                                 <div class="font-bold text-gray-900">{{ $student->name }}</div>
