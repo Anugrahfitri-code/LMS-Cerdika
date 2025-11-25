@@ -15,17 +15,13 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <!-- Tambahkan x-data="{ sidebarOpen: false }" di div pembungkus utama -->
         <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-50 overflow-hidden">
             
-            <!-- Sidebar -->
             @include('layouts.sidebar')
 
-            <!-- Konten Utama -->
             <div class="flex-1 flex flex-col overflow-hidden">
                 @include('layouts.navigation')
 
-                <!-- Main Content -->
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
                     {{ $slot }}
                 </main>
