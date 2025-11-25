@@ -13,16 +13,25 @@ class UserManagementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request) 
     {
-        $users = User::where('id', '!=', auth()->id())->paginate(10);
+        $query = User::where('id', '!=', auth()->id());
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        $users = $query->paginate(10)->withQueryString();
 
         $total_teachers = User::where('role', 'teacher')->count();
         $total_students = User::where('role', 'student')->count();
 
         return view('users.index', compact('users', 'total_teachers', 'total_students'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
