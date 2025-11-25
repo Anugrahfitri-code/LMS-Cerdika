@@ -69,4 +69,23 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    /**
+     * Menghapus foto profil pengguna.
+     */
+    public function destroyAvatar(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        if ($user->avatar) {
+            if (Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            
+            $user->forceFill([
+                'avatar' => null,
+            ])->save();
+        }
+
+        return back()->with('status', 'avatar-deleted');
+    }
 }

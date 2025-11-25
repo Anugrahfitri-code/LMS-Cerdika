@@ -80,7 +80,10 @@ Route::middleware('auth')->group(function () {
          ->name('posts.destroy');     
 
     Route::get('/courses/{course}/certificate', [CertificateController::class, 'generate'])
-             ->name('courses.certificate');     
+             ->name('courses.certificate'); 
+             
+    // Route khusus untuk hapus avatar
+    Route::delete('/profile/avatar', [ProfileController::class, 'destroyAvatar'])->name('profile.avatar.destroy');         
 });
 
 require __DIR__.'/auth.php';
