@@ -302,95 +302,203 @@
                                              TAMPILAN ADMIN
                  ================================================================================== --}}
             @else
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 border-t-4 border-t-blue-500 hover:shadow-lg transition-all duration-300 flex items-center">
-                        <div class="p-3 rounded-full bg-blue-50 text-blue-600 mr-4">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Pengguna</p>
-                            <h4 class="text-3xl font-extrabold text-gray-900">{{ $stats['total_users'] }}</h4>
-                        </div>
-                    </div>
+            
+                {{-- 1. Hero Section: Welcome Banner dengan Nuansa Biru Gradasi --}}
+                <div class="relative bg-gradient-to-r from-blue-700 to-cyan-600 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden text-white mb-10">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-400 opacity-20 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-cyan-300 opacity-20 rounded-full blur-xl pointer-events-none animate-pulse"></div>
 
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 border-t-4 border-t-indigo-500 hover:shadow-lg transition-all duration-300 flex items-center">
-                        <div class="p-3 rounded-full bg-indigo-50 text-indigo-600 mr-4">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="space-y-2">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 border border-white/30 backdrop-blur-md w-fit">
+                                <span class="w-2 h-2 rounded-full bg-cyan-300 animate-ping"></span>
+                                <span class="text-xs font-bold uppercase tracking-wider">Administrator Panel</span>
+                            </div>
+                            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">Selamat Datang, Admin!</h1>
+                            <p class="text-blue-100 text-lg max-w-lg leading-relaxed">
+                                Kelola seluruh ekosistem pembelajaran, pantau statistik pengguna, dan atur konten kursus dari satu tempat.
+                            </p>
                         </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Kursus</p>
-                            <h4 class="text-3xl font-extrabold text-gray-900">{{ $stats['total_courses'] }}</h4>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 border-t-4 border-t-emerald-500 hover:shadow-lg transition-all duration-300 flex items-center">
-                        <div class="p-3 rounded-full bg-emerald-50 text-emerald-600 mr-4">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Kategori</p>
-                            <h4 class="text-3xl font-extrabold text-gray-900">{{ $stats['total_categories'] }}</h4>
+                        
+                        <div class="flex gap-4">
+                            <div class="text-center p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl min-w-[110px] shadow-lg">
+                                <p class="text-4xl font-black">{{ $stats['total_users'] }}</p>
+                                <p class="text-[10px] text-blue-100 uppercase font-bold tracking-widest mt-1">Total User</p>
+                            </div>
+                            <div class="text-center p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl min-w-[110px] shadow-lg">
+                                <p class="text-4xl font-black">{{ $stats['total_courses'] }}</p>
+                                <p class="text-[10px] text-blue-100 uppercase font-bold tracking-widest mt-1">Kursus</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
-                        <h3 class="font-bold text-lg text-gray-800 flex items-center gap-3">
-                            <span class="relative flex h-3 w-3">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                            </span>
-                            Pengguna Terbaru
-                        </h3>
-                        <a href="{{ route('users.index') }}" class="text-xs font-bold text-blue-600 hover:text-blue-800 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors border border-transparent hover:border-blue-100">
-                            Lihat Semua &rarr;
-                        </a>
+                {{-- 2. Statistik Utama (Grid 4 Kolom) --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    {{-- Card Siswa --}}
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-xl group-hover:from-blue-600 group-hover:to-blue-500 group-hover:text-white transition-colors shadow-sm">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">Siswa</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-medium">Total Siswa</p>
+                            <h3 class="text-3xl font-bold text-gray-800">{{ $stats['total_students'] }}</h3>
+                        </div>
                     </div>
 
-                    <div class="divide-y divide-gray-50">
-                        @foreach($recentUsers as $user)
-                        <div class="p-4 hover:bg-blue-50/30 transition-colors duration-150 grid grid-cols-12 items-center gap-4">
-                            
-                            <div class="col-span-8 flex items-center gap-4">
-                                <div class="h-12 w-12 rounded-full flex-shrink-0 overflow-hidden border border-gray-200 shadow-sm">
-                                    @if($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
-                                    @else
-                                        <div class="w-full h-full flex items-center justify-center font-bold text-white text-sm
-                                            {{ $user->role == 'admin' ? 'bg-gradient-to-br from-red-500 to-pink-600' : ($user->role == 'teacher' ? 'bg-gradient-to-br from-indigo-500 to-purple-600' : 'bg-gradient-to-br from-blue-500 to-cyan-500') }}">
-                                            {{ substr($user->name, 0, 2) }}
-                                        </div>
-                                    @endif
+                    {{-- Card Pengajar --}}
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-cyan-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-gradient-to-br from-cyan-100 to-cyan-200 text-cyan-700 rounded-xl group-hover:from-cyan-600 group-hover:to-cyan-500 group-hover:text-white transition-colors shadow-sm">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                                 </div>
-                                
-                                <div class="min-w-0">
-                                    <p class="font-bold text-sm text-gray-900 truncate">{{ $user->name }}</p>
-                                    <p class="text-xs text-gray-500 truncate">{{ $user->email }}</p>
+                                <span class="text-xs font-bold text-cyan-700 bg-cyan-50 px-2 py-1 rounded-lg">Pengajar</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-medium">Guru / Partner</p>
+                            <h3 class="text-3xl font-bold text-gray-800">{{ $stats['total_teachers'] }}</h3>
+                        </div>
+                    </div>
+
+                    {{-- Card Kategori --}}
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-indigo-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-gradient-to-br from-indigo-100 to-indigo-200 text-indigo-600 rounded-xl group-hover:from-indigo-600 group-hover:to-indigo-500 group-hover:text-white transition-colors shadow-sm">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                                 </div>
+                                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">Topik</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-medium">Kategori Kursus</p>
+                            <h3 class="text-3xl font-bold text-gray-800">{{ $stats['total_categories'] }}</h3>
+                        </div>
+                    </div>
+
+                    {{-- Card Materi --}}
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-sky-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-gradient-to-br from-sky-100 to-sky-200 text-sky-600 rounded-xl group-hover:from-sky-600 group-hover:to-sky-500 group-hover:text-white transition-colors shadow-sm">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-1 rounded-lg">Konten</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-medium">Total Materi (Bab)</p>
+                            <h3 class="text-3xl font-bold text-gray-800">{{ $stats['total_contents'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    {{-- 3. Kolom Kiri: Aksi Cepat (Quick Actions) --}}
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 relative overflow-hidden">
+                             <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-b from-blue-50 to-transparent rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                             
+                            <div class="flex items-center justify-between mb-6 relative z-10">
+                                <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                                    <div class="w-1.5 h-6 bg-gradient-to-b from-blue-600 to-cyan-500 rounded-full"></div>
+                                    Menu Pintas
+                                </h3>
                             </div>
 
-                            <div class="col-span-4 flex justify-end">
-                                @if($user->role == 'admin')
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 border border-red-200 shadow-sm">
-                                        Admin
-                                    </span>
-                                @elseif($user->role == 'teacher')
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 border border-indigo-200 shadow-sm">
-                                        Teacher
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600 border border-gray-200 shadow-sm">
-                                        Student
-                                    </span>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 relative z-10">
+                                {{-- Tambah User --}}
+                                <a href="{{ route('users.create') }}" class="group p-5 rounded-2xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-blue-300 hover:shadow-lg transition-all duration-300 text-center flex flex-col items-center justify-center gap-3">
+                                    <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform group-hover:bg-blue-600 group-hover:text-white text-blue-600">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-bold text-gray-900 group-hover:text-blue-700">Tambah User</span>
+                                        <span class="text-xs text-gray-500">Guru/Siswa Baru</span>
+                                    </div>
+                                </a>
+
+                                {{-- Tambah Kursus --}}
+                                <a href="{{ route('courses.create') }}" class="group p-5 rounded-2xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-cyan-300 hover:shadow-lg transition-all duration-300 text-center flex flex-col items-center justify-center gap-3">
+                                    <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform group-hover:bg-cyan-600 group-hover:text-white text-cyan-600">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-bold text-gray-900 group-hover:text-cyan-700">Buat Kursus</span>
+                                        <span class="text-xs text-gray-500">Materi Pembelajaran</span>
+                                    </div>
+                                </a>
+
+                                {{-- Tambah Kategori --}}
+                                <a href="{{ route('categories.create') }}" class="group p-5 rounded-2xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-indigo-300 hover:shadow-lg transition-all duration-300 text-center flex flex-col items-center justify-center gap-3">
+                                    <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform group-hover:bg-indigo-600 group-hover:text-white text-indigo-600">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-bold text-gray-900 group-hover:text-indigo-700">Kategori Baru</span>
+                                        <span class="text-xs text-gray-500">Klasifikasi Topik</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Akses Manajemen Cepat --}}
+                         <div class="bg-gradient-to-r from-blue-50 to-white rounded-2xl p-6 border border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-blue-900">Manajemen Data</h4>
+                                <p class="text-sm text-blue-700/70">Kelola seluruh data sistem dengan mudah.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="{{ route('users.index') }}" class="px-5 py-2.5 bg-white text-blue-700 font-bold text-sm rounded-xl shadow-sm border border-blue-100 hover:bg-blue-600 hover:text-white transition-all">
+                                    Semua User &rarr;
+                                </a>
+                                <a href="{{ route('courses.index') }}" class="px-5 py-2.5 bg-blue-600 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">
+                                    Semua Kursus &rarr;
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{-- 4. Kolom Kanan: Pengguna Terbaru (List Vertikal) --}}
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden h-full">
+                            <div class="p-6 border-b border-gray-50 bg-gray-50/30 flex justify-between items-center">
+                                <h3 class="font-bold text-gray-900">User Terbaru</h3>
+                                <a href="{{ route('users.index') }}" class="text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline">Lihat Semua</a>
+                            </div>
+                            <div class="divide-y divide-gray-50">
+                                @foreach($recentUsers as $user)
+                                    <div class="p-4 hover:bg-blue-50/40 transition-colors flex items-center gap-3 group">
+                                        <div class="h-10 w-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs shadow-sm
+                                            {{ $user->role == 'admin' ? 'bg-gradient-to-br from-red-500 to-red-600' : ($user->role == 'teacher' ? 'bg-gradient-to-br from-cyan-500 to-cyan-600' : 'bg-gradient-to-br from-blue-500 to-blue-600') }}">
+                                            {{ substr($user->name, 0, 2) }}
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-900 truncate group-hover:text-blue-700 transition-colors">{{ $user->name }}</p>
+                                            <p class="text-xs text-gray-500 truncate">{{ $user->email }}</p>
+                                        </div>
+                                        <span class="text-[10px] px-2 py-1 rounded-md font-bold uppercase tracking-wide
+                                            {{ $user->role == 'admin' ? 'bg-red-100 text-red-600' : ($user->role == 'teacher' ? 'bg-cyan-100 text-cyan-600' : 'bg-blue-100 text-blue-600') }}">
+                                            {{ $user->role }}
+                                        </span>
+                                    </div>
+                                @endforeach
+                                @if($recentUsers->isEmpty())
+                                    <div class="p-8 text-center text-gray-400 text-sm">
+                                        Belum ada pengguna baru.
+                                    </div>
                                 @endif
                             </div>
                         </div>
-                        @endforeach
                     </div>
                 </div>
-
             @endif
 
         </div>
