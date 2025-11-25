@@ -2,8 +2,6 @@
 
 LMS Cerdika adalah platform Learning Management System (LMS) modern yang dibangun menggunakan **Laravel 11**. Aplikasi ini dirancang untuk memfasilitasi proses belajar mengajar secara daring dengan fitur manajemen kursus yang komprehensif, pelacakan progres siswa, forum diskusi interaktif, dan penerbitan sertifikat otomatis.
 
-![LMS Cerdika Cover](https://via.placeholder.com/1200x400?text=LMS-Cerdika+Dashboard+Preview)
-
 ## 🚀 Fitur Utama
 
 Aplikasi ini memiliki sistem *Role-Based Access Control* (RBAC) yang membagi pengguna menjadi tiga peran:

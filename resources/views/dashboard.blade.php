@@ -303,62 +303,83 @@
                  ================================================================================== --}}
             @else
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl shadow-lg border border-blue-200 flex items-center hover:shadow-xl transition-all hover:-translate-y-1 group">
-                        <div class="p-3 bg-gradient-to-br from-blue-200 to-blue-300 text-blue-700 rounded-xl mr-4 group-hover:scale-110 transition-transform shadow-md">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 border-t-4 border-t-blue-500 hover:shadow-md transition-all duration-300 flex items-center">
+                        <div class="p-3 rounded-full bg-blue-50 text-blue-600 mr-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-blue-600 text-sm font-medium">Total Pengguna</p>
-                            <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">{{ $stats['total_users'] }}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Pengguna</p>
+                            <h4 class="text-3xl font-extrabold text-gray-900">{{ $stats['total_users'] }}</h4>
                         </div>
                     </div>
-                     <div class="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-2xl shadow-lg border border-blue-300 flex items-center hover:shadow-xl transition-all hover:-translate-y-1 group">
-                        <div class="p-3 bg-gradient-to-br from-blue-300 to-blue-400 text-blue-800 rounded-xl mr-4 group-hover:scale-110 transition-transform shadow-md">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 border-t-4 border-t-indigo-500 hover:shadow-md transition-all duration-300 flex items-center">
+                        <div class="p-3 rounded-full bg-indigo-50 text-indigo-600 mr-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
                         <div>
-                            <p class="text-blue-700 text-sm font-medium">Total Kursus</p>
-                            <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-800 to-blue-700 bg-clip-text text-transparent">{{ $stats['total_courses'] }}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Kursus</p>
+                            <h4 class="text-3xl font-extrabold text-gray-900">{{ $stats['total_courses'] }}</h4>
                         </div>
                     </div>
-                     <div class="bg-gradient-to-br from-blue-200 to-blue-300 p-6 rounded-2xl shadow-lg border border-blue-400 flex items-center hover:shadow-xl transition-all hover:-translate-y-1 group">
-                        <div class="p-3 bg-gradient-to-br from-blue-400 to-blue-500 text-blue-900 rounded-xl mr-4 group-hover:scale-110 transition-transform shadow-md">
-                           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 border-t-4 border-t-emerald-500 hover:shadow-md transition-all duration-300 flex items-center">
+                        <div class="p-3 rounded-full bg-emerald-50 text-emerald-600 mr-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-blue-800 text-sm font-medium">Kategori</p>
-                            <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-900 to-blue-800 bg-clip-text text-transparent">{{ $stats['total_categories'] }}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Kategori</p>
+                            <h4 class="text-3xl font-extrabold text-gray-900">{{ $stats['total_categories'] }}</h4>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-br from-blue-50 via-white to-blue-100 rounded-2xl shadow-lg border border-blue-200 p-8 mt-6 hover:shadow-xl transition-all">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="font-bold text-lg text-gray-900 flex items-center gap-2">
-                            <div class="w-1 h-6 bg-gradient-to-b from-blue-600 to-blue-400 rounded-full"></div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
+                        <h3 class="font-bold text-lg text-gray-800 flex items-center gap-3">
+                            <span class="flex h-3 w-3 relative">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                            </span>
                             Pengguna Terbaru
                         </h3>
-                        <a href="{{ route('users.index') }}" class="text-sm text-blue-600 font-semibold hover:text-blue-800 transition-colors bg-gradient-to-r from-blue-50 to-blue-100 px-3 py-1.5 rounded-lg hover:from-blue-100 hover:to-blue-200">Lihat Semua →</a>
+                        <a href="{{ route('users.index') }}" class="text-xs font-bold text-blue-600 hover:text-blue-800 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors border border-transparent hover:border-blue-100">
+                            Lihat Semua &rarr;
+                        </a>
                     </div>
-                    <div class="space-y-4">
+
+                    <div class="divide-y divide-gray-50">
                         @foreach($recentUsers as $user)
-                            <div class="flex items-center justify-between border-b border-blue-100/50 pb-3 last:border-0 hover:bg-blue-50/50 p-2 rounded-lg transition-all">
-                                <div class="flex items-center gap-4">
-                                    <div class="h-10 w-10 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-lg
-                                        {{ $user->role == 'admin' ? 'bg-gradient-to-br from-blue-700 to-blue-800' : ($user->role == 'teacher' ? 'bg-gradient-to-br from-blue-600 to-blue-500' : 'bg-gradient-to-br from-blue-500 to-blue-400') }}">
-                                        {{ substr($user->name, 0, 2) }}
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-sm text-gray-900">{{ $user->name }}</p>
-                                        <p class="text-xs text-gray-500">{{ $user->email }}</p>
-                                    </div>
+                        <div class="p-4 hover:bg-blue-50/30 transition-colors duration-150 grid grid-cols-12 items-center gap-4">
+                            
+                            <div class="col-span-8 flex items-center gap-4">
+                                <div class="h-12 w-12 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-sm shadow-md ring-2 ring-white
+                                    {{ $user->role == 'admin' ? 'bg-gradient-to-br from-red-500 to-pink-600' : ($user->role == 'teacher' ? 'bg-gradient-to-br from-indigo-500 to-purple-600' : 'bg-gradient-to-br from-blue-500 to-cyan-500') }}">
+                                    {{ substr($user->name, 0, 2) }}
                                 </div>
-                                <span class="text-xs px-2.5 py-1 rounded-full font-bold border shadow-sm
-                                    {{ $user->role == 'admin' ? 'bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 border-blue-300' : ($user->role == 'teacher' ? 'bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 border-blue-200' : 'bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 border-blue-200') }}">
-                                    {{ ucfirst($user->role) }}
-                                </span>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-sm text-gray-900 truncate">{{ $user->name }}</p>
+                                    <p class="text-xs text-gray-500 truncate">{{ $user->email }}</p>
+                                </div>
                             </div>
+
+                            <div class="col-span-4 flex justify-end">
+                                @if($user->role == 'admin')
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200">
+                                        Admin
+                                    </span>
+                                @elseif($user->role == 'teacher')
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                                        Teacher
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                                        Student
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>
