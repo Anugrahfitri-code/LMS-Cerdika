@@ -12,9 +12,16 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request) 
     {
-        $categories = Category::paginate(5); 
+        $query = Category::query();
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $categories = $query->paginate(5)->withQueryString(); // Agar pagination tidak reset
+        
         return view('categories.index', compact('categories'));
     }
 
