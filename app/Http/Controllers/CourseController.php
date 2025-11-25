@@ -15,17 +15,27 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request) 
     {
         $this->authorize('viewAny', Course::class);
+        
         $query = Course::query();
 
         if (auth()->user()->role === 'teacher') {
             $query->where('user_id', auth()->id());
         }
 
-        $courses = $query->with('category', 'teacher')->paginate(10);
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
 
+        $courses = $query->with('category', 'teacher')
+                         ->paginate(10)
+                         ->withQueryString(); 
         return view('courses.index', compact('courses'));
     }
 
