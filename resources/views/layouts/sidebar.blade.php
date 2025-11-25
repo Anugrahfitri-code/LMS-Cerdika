@@ -1,6 +1,21 @@
-<div class="flex h-full flex-col bg-white border-r border-gray-100 shadow-xl relative">
+<!-- Mobile Backdrop (Latar belakang gelap saat sidebar terbuka di HP) -->
+<div x-show="sidebarOpen" 
+     x-transition:enter="transition-opacity ease-linear duration-300"
+     x-transition:enter-start="opacity-0"
+     x-transition:enter-end="opacity-100"
+     x-transition:leave="transition-opacity ease-linear duration-300"
+     x-transition:leave-start="opacity-100"
+     x-transition:leave-end="opacity-0"
+     @click="sidebarOpen = false"
+     class="fixed inset-0 z-20 bg-gray-900/50 backdrop-blur-sm md:hidden">
+</div>
+
+<!-- Sidebar Container -->
+<aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+       class="fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-100 shadow-xl transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:inset-0 flex flex-col h-full">
     
-    <div class="flex items-center justify-center h-24 border-b border-gray-50">
+    <!-- Header Sidebar -->
+    <div class="flex items-center justify-between h-20 border-b border-gray-50 px-6">
         <a href="{{ route('dashboard') }}" class="flex items-center gap-3 group">
             <div class="bg-gradient-to-br from-blue-600 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -10,9 +25,15 @@
                 <span class="text-sm font-medium text-blue-600 tracking-widest uppercase">Cerdika</span>
             </div>
         </a>
+
+        <!-- Tombol Close (Hanya muncul di HP) -->
+        <button @click="sidebarOpen = false" class="md:hidden text-gray-500 hover:text-red-500 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
     </div>
 
-    <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+    <!-- Navigasi -->
+    <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1 custom-scrollbar">
         
         <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-2">Menu Utama</p>
         
@@ -23,7 +44,6 @@
             Beranda
         </a>
 
-        {{-- Menu Dashboard hanya muncul jika login --}}
         @auth
             <a href="{{ route('dashboard') }}" 
                class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
@@ -74,8 +94,8 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-6">Menu Belajar</p>
             <a href="{{ route('course.catalog') }}" 
                class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group 
-               {{ request()->routeIs('course.catalog') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
-                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('course.catalog') ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+               {{ request()->routeIs('course.catalog') || request()->routeIs('public.course.show') ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('course.catalog') || request()->routeIs('public.course.show') ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 Katalog Kursus
             </a>
         @endif
@@ -86,8 +106,13 @@
     <div class="border-t border-gray-100 p-4 bg-gray-50/50">
         @auth
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                    {{ substr(auth()->user()->name, 0, 2) }}
+                <!-- Avatar -->
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-md overflow-hidden">
+                    @if(auth()->user()->avatar)
+                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
+                    @else
+                        {{ substr(auth()->user()->name, 0, 2) }}
+                    @endif
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="text-sm font-bold text-gray-900 truncate">{{ auth()->user()->name }}</p>
@@ -109,4 +134,4 @@
             </div>
         @endauth
     </div>
-</div>
+</aside>
