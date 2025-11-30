@@ -40,7 +40,7 @@ class UpdateContentRequest extends FormRequest
             'order' => [
                 'nullable', 
                 'integer', 
-                'min:0',
+                'min:1',
                 Rule::unique('contents')
                     ->where('course_id', $courseId)
                     ->ignore($contentId)

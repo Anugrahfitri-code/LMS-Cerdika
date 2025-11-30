@@ -56,7 +56,10 @@ class DashboardController extends Controller
                 'total_contents' => Content::count(),
             ];
 
-            $data['recentUsers'] = User::latest()->take(5)->get();
+            $data['recentUsers'] = User::where('id', '!=', auth()->id())
+                                        ->latest()
+                                        ->take(5)
+                                        ->get();
         }
 
         return view('dashboard', $data);

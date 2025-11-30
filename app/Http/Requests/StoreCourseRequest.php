@@ -30,4 +30,13 @@ class StoreCourseRequest extends FormRequest
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
         ];
     }
+    protected function prepareForValidation()
+    {
+        // Jika yang login adalah Teacher,  inject ID-nya otomatis
+        if ($this->user()->role === 'teacher') {
+            $this->merge([
+                'user_id' => $this->user()->id,
+            ]);
+        }
+    }
 }

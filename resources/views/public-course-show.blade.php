@@ -116,41 +116,57 @@
                             <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-blue-500/20 to-blue-400/20 rounded-full blur-3xl" style="animation: float 8s ease-in-out infinite;"></div>
                             
                             <div class="relative z-10">
-                                <span class="px-4 py-2 text-xs font-bold tracking-wider text-white uppercase gradient-blue rounded-full shadow-lg shadow-blue-500/30 inline-block">
-                                    {{ $course->category->name }}
-                                </span>
+                                {{-- Kategori Badge --}}
+                                <div class="mb-6">
+                                    <span class="px-4 py-2 text-xs font-bold tracking-wider text-white uppercase bg-blue-600 rounded-full shadow-lg shadow-blue-500/30">
+                                        {{ $course->category->name }}
+                                    </span>
+                                </div>
                                 
-                                <h1 class="mt-6 text-4xl md:text-5xl font-black text-blue-600 leading-normal pb-2">
+                                {{-- Judul Kursus --}}
+                                <h1 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-8">
                                     {{ $course->title }}
                                 </h1>
                                 
-                                <div class="flex flex-wrap items-center gap-6 mt-6">
-                                    <div class="flex items-center group">
-                                        <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mr-3 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                        </div>
-                                        <div class="flex items-center gap-4 mb-6">
-                                            <div class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-md bg-blue-100 text-blue-600 overflow-hidden border border-blue-200">
-                                                @if($course->teacher->avatar)
-                                                    <img src="{{ asset('storage/' . $course->teacher->avatar) }}" alt="{{ $course->teacher->name }}" class="w-full h-full object-cover">
-                                                @else
-                                                    {{ substr($course->teacher->name, 0, 2) }}
-                                                @endif
+                                {{-- Garis Pembatas Halus --}}
+                                <div class="border-t border-gray-100 pt-8">
+                                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+                                        
+                                        {{-- Blok Pengajar (Kiri) --}}
+                                        <div class="flex items-center gap-4 group">
+                                            <div class="relative">
+                                                <div class="w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xl shadow-md bg-blue-50 text-blue-600 overflow-hidden border-2 border-white ring-2 ring-blue-50 group-hover:ring-blue-200 transition-all">
+                                                    @if($course->teacher->avatar)
+                                                        <img src="{{ asset('storage/' . $course->teacher->avatar) }}" alt="{{ $course->teacher->name }}" class="w-full h-full object-cover">
+                                                    @else
+                                                        {{ substr($course->teacher->name, 0, 2) }}
+                                                    @endif
+                                                </div>
+                                                {{-- Indikator Verified Kecil (Opsional) --}}
+                                                <div class="absolute bottom-0 right-0 bg-blue-500 border-2 border-white rounded-full w-4 h-4 flex items-center justify-center">
+                                                    <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                                </div>
                                             </div>
                                             <div>
-                                                <h4 class="font-bold text-gray-900 text-lg">{{ $course->teacher->name }}</h4>
-                                                <p class="text-sm text-gray-500">Pengajar</p>
+                                                <h4 class="font-bold text-gray-900 text-lg leading-none mb-1 group-hover:text-blue-600 transition-colors">{{ $course->teacher->name }}</h4>
+                                                <p class="text-sm text-gray-500 font-medium">Pengajar Utama</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="flex items-center group">
-                                        <div class="p-2 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl mr-3 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+
+                                        {{-- Divider Vertikal (Hanya di Desktop) --}}
+                                        <div class="hidden sm:block w-px h-10 bg-gray-200 mx-2"></div>
+
+                                        {{-- Blok Total Peserta (Kanan) --}}
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-gray-900 text-lg leading-none mb-1">{{ $course->students_count }} Mahasiswa</h4>
+                                                <p class="text-sm text-gray-500 font-medium">Total Peserta</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="text-xs text-gray-500 font-medium">Total Peserta</p>
-                                            <p class="text-sm font-bold text-gray-800">{{ $course->students_count }} Mahasiswa</p>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

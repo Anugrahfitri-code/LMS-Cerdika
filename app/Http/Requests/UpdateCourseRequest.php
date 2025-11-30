@@ -32,4 +32,12 @@ class UpdateCourseRequest extends FormRequest
             'is_active' => ['required', 'boolean'],
         ];
     }
+    protected function prepareForValidation()
+    {
+        if ($this->user()->role === 'teacher') {
+            $this->merge([
+                'user_id' => $this->user()->id,
+            ]);
+        }
+    }
 }

@@ -24,11 +24,27 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique('users')->ignore($this->user->id)],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.]+$/'],
+            'email' => [
+                'required', 
+                'string', 
+                'lowercase', 
+                'email', 
+                'max:255', 
+                Rule::unique('users')->ignore($this->user->id),
+                // Regex Email yang sama
+                'regex:/^.+@.+\..{2,}$/i'
+            ],
             'role' => ['required', 'string', 'in:student,teacher'],
             'is_active' => ['required', 'boolean'],
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'name.regex' => 'Nama hanya boleh berisi huruf, spasi, dan titik.',
+            'email.regex' => 'Format email tidak valid. Harus mengandung domain lengkap (contoh: .com, .co.id).',
         ];
     }
 }
