@@ -60,7 +60,30 @@ class DashboardController extends Controller
                                         ->latest()
                                         ->take(5)
                                         ->get();
+
+
+            $studentsData = User::where('role', 'student')
+                ->where('created_at', '>=', now()->subMonths(6))
+                ->orderBy('created_at')
+                ->get()
+                ->groupBy(function($date) {
+                    return \Carbon\Carbon::parse($date->created_at)->translatedFormat('F');
+                });
+
+            $chartLabels = [];
+            $chartValues = [];
+
+            for ($i = 5; $i >= 0; $i--) {
+                $month = now()->subMonths($i)->translatedFormat('F');
+                $chartLabels[] = $month;
+                $chartValues[] = isset($studentsData[$month]) ? $studentsData[$month]->count() : 0;
+            }
+
+            $data['chartLabels'] = $chartLabels;
+            $data['chartValues'] = $chartValues;                                
         }
+
+        
 
         return view('dashboard', $data);
     }
