@@ -17,7 +17,11 @@ class CategoryController extends Controller
         $query = Category::query();
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('slug', 'like', '%' . $search . '%');
+            });
         }
 
         $categories = $query->paginate(5)->withQueryString(); // Agar pagination tidak reset

@@ -85,33 +85,27 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 
                 @if (session('success'))
-                    <div class="bg-green-50 border-l-4 border-green-500 p-4 m-6 rounded-r-lg flex items-center justify-between animate-fade-in-down">
-                        <div class="flex items-center">
-                            <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-green-800 font-medium text-sm">{{ session('success') }}</span>
-                        </div>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 m-6 rounded-r-lg flex items-center animate-fade-in-down">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-green-800 font-medium text-sm">{{ session('success') }}</span>
                     </div>
                 @endif
 
+                {{-- HEADER TABEL + SEARCH FORM --}}
                 <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <h3 class="text-lg font-bold text-gray-800">Daftar Kategori</h3>
                     
-                    <div class="relative">
-                        <form method="GET" action="{{ route('categories.index') }}" class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                            
-                            <input type="text" 
-                                name="search" 
-                                value="{{ request('search') }}" 
-                                class="pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full sm:w-64 transition-shadow" 
-                                placeholder="Cari kategori..."
-                                onchange="this.form.submit()">
-                        </form>
-                    </div>
+                    <form method="GET" action="{{ route('categories.index') }}" class="relative w-full sm:w-64">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <input type="text" 
+                               name="search"
+                               value="{{ request('search') }}"
+                               class="pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full transition-shadow" 
+                               placeholder="Cari kategori..."
+                               onchange="this.form.submit()">
+                    </form>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -125,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
-                            @foreach ($categories as $category)
+                            @forelse ($categories as $category)
                                 <tr class="hover:bg-blue-50/30 transition duration-150 group">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
@@ -171,7 +165,23 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                {{-- EMPTY STATE (KOSONG) --}}
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center">
+                                        <div class="flex flex-col items-center justify-center">
+                                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                                </svg>
+                                            </div>
+                                            <h3 class="text-lg font-medium text-gray-900">Kategori Tidak Ditemukan</h3>
+                                            <p class="text-gray-500 text-sm mt-1">Silakan coba kata kunci lain atau reset pencarian.</p>
+                                            <a href="{{ route('categories.index') }}" class="mt-4 text-blue-600 hover:text-blue-800 text-sm font-bold hover:underline">Reset Pencarian</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
