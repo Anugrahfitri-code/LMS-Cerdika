@@ -29,11 +29,19 @@ class CertificateController extends Controller
             return redirect()->route('dashboard')->with('error', 'Anda harus menyelesaikan 100% materi untuk mengunduh sertifikat.');
         }
 
+        $lastProgress = $user->progress()
+            ->whereIn('content_id', $course->contents->pluck('id'))
+            ->latest('created_at') 
+            ->first();
+
+        $dateCompleted = $lastProgress ? $lastProgress->created_at : now();
+        // --------------------------------
+
         $data = [
             'studentName' => $user->name,
             'courseName' => $course->title,
             'teacherName' => $course->teacher->name,
-            'completionDate' => now()->format('d F Y'), 
+            'completionDate' => $dateCompleted->format('d F Y'), 
         ];
 
         $pdf = Pdf::loadView('certificate.template', $data);
